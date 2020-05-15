@@ -13,16 +13,16 @@ import CustomDrawer from "../components/CustomDrawer";
 const RootDrawerNavigator = createDrawerNavigator(
   {
     EResamont: {
-      screen: HomeStack
+      screen: HomeStack,
     },
     MidataSettings: {
-      screen: SettingsStack
-    }
+      screen: SettingsStack,
+    },
   },
   {
     contentComponent: ({ navigation }) => {
       return <CustomDrawer navigation={navigation} />;
-    }
+    },
   }
 );
 

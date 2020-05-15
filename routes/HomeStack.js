@@ -23,9 +23,9 @@ const screens = {
           />
         ),
         headerLeft: () => <HeaderLeft navigation={navigation} />,
-        headerRight: () => <HeaderRight navigation={navigation} />
+        headerRight: () => <HeaderRight navigation={navigation} />,
       };
-    }
+    },
   },
   SubScreen: {
     screen: SubScreen,
@@ -36,9 +36,9 @@ const screens = {
           <Header title={navParams.pages_lang} navigation={navigation} />
         ),
         headerLeft: () => <HeaderLeft navigation={navigation} />,
-        headerRight: () => <HeaderRight navigation={navigation} />
+        headerRight: () => <HeaderRight navigation={navigation} />,
       };
-    }
+    },
   },
   EmergencyCalls: {
     screen: EmergencyCalls,
@@ -46,26 +46,26 @@ const screens = {
       return {
         headerTitle: () => (
           <Header title="Emergency calls" navigation={navigation} />
-        )
+        ),
       };
-    }
+    },
   },
   Geolocation: {
     screen: Geolocation,
     navigationOptions: ({ navigation }) => {
       return {
-        headerTitle: () => <Header title="GPS" navigation={navigation} />
+        headerTitle: () => <Header title="GPS" navigation={navigation} />,
       };
-    }
-  }
+    },
+  },
 };
 
 // home stack navigator screens
 const HomeStack = createStackNavigator(screens, {
   defaultNavigationOptions: {
     headerStyle: globalStyles.headerStyle,
-    headerTintColor: "black"
-  }
+    headerTintColor: "black",
+  },
 });
 
 export default HomeStack;

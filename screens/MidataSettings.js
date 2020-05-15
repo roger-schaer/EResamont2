@@ -6,7 +6,7 @@ import {
   Image,
   ToastAndroid,
   ScrollView,
-  ImageBackground
+  ImageBackground,
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import { LanguageContext } from "../shared/LanguageContext";
@@ -20,7 +20,7 @@ export default function MidataSettings({ navigation }) {
     userName,
     signInAsync,
     signOutAsync,
-    getLoggedUserName
+    getLoggedUserName,
   } = useAuth2();
 
   let logInPressed = async () => {
@@ -53,7 +53,7 @@ export default function MidataSettings({ navigation }) {
           style={{
             backgroundColor: "rgba(255,255,255, 0.7)",
             padding: 5,
-            borderRadius: 5
+            borderRadius: 5,
           }}
         >
           {translate(
@@ -76,7 +76,7 @@ export default function MidataSettings({ navigation }) {
               value={translate("Sign in to Midata", language)}
               style={{
                 ...globalStyles.midataButton,
-                backgroundColor: "darkblue"
+                backgroundColor: "darkblue",
               }}
               onPress={async () => {
                 logInPressed();
@@ -86,7 +86,7 @@ export default function MidataSettings({ navigation }) {
               value={translate("My data", language)}
               style={{
                 ...globalStyles.midataButton,
-                backgroundColor: "darkblue"
+                backgroundColor: "darkblue",
               }}
               onPress={() => {
                 navigation.push("MyData");
@@ -106,6 +106,7 @@ export default function MidataSettings({ navigation }) {
   );
 }
 
+// TODO - Make this hard-coded localization more elegant
 let translate = (name, language) => {
   if (name === "Welcome") {
     switch (language) {
@@ -201,10 +202,10 @@ const localStyles = StyleSheet.create({
   logoImage: {
     width: "100%",
     resizeMode: "contain",
-    alignSelf: "center"
+    alignSelf: "center",
   },
   midataContainer: {
-    flex: 1
+    flex: 1,
   },
   loginStatusText: {
     marginTop: 3,
@@ -212,12 +213,12 @@ const localStyles = StyleSheet.create({
     alignSelf: "center",
     fontSize: 15,
     backgroundColor: "rgba(255,255,255, 0.5)",
-    padding: 5
+    padding: 5,
   },
   buttonContainerMain: { flex: 3 },
   scrollViewMain: {
     flexGrow: 1,
     justifyContent: "flex-start",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 });

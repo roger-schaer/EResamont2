@@ -26,7 +26,7 @@ export default class storage {
     console.log("=====================================");
     console.log("Saving data to local storage");
     try {
-      data.forEach(item => {
+      data.forEach((item) => {
         FileSystem.writeAsStringAsync(
           filePath + item.position + ".txt",
           JSON.stringify(item)
@@ -37,6 +37,7 @@ export default class storage {
       console.error(e);
     }
   }
+
   static async getAllStoragePages() {
     console.log("=====================================");
     console.log("Fetching local data");
@@ -51,6 +52,7 @@ export default class storage {
       console.error(e);
     }
   }
+
   static async updateStoragePages(data) {
     console.log("=====================================");
     console.log("Updating local data");
@@ -59,7 +61,7 @@ export default class storage {
       return false;
     } else {
       try {
-        data.forEach(item => {
+        data.forEach((item) => {
           FileSystem.writeAsStringAsync(
             filePath + item.position + ".txt",
             JSON.stringify(item)
@@ -76,13 +78,14 @@ export default class storage {
       }
     }
   }
+
   static async removeAllStoragePages() {
     console.log("=====================================");
     console.log("Clearing local data");
     try {
       for (let i = 1; i < 8; i++) {
         FileSystem.deleteAsync(filePath + i + ".txt", {
-          idempotent: true
+          idempotent: true,
         });
       }
       console.log("Local data cleared");
@@ -90,6 +93,7 @@ export default class storage {
       console.error(e);
     }
   }
+
   static async getQuizScore(idQuizz) {
     let fileName = this.getFileName(idQuizz);
     console.log("=====================================");
@@ -103,6 +107,7 @@ export default class storage {
       return [];
     }
   }
+
   static async saveQuizScore(idQuizz, score) {
     let fileName = this.getFileName(idQuizz); //get file name to save according to quizz
     console.log("=====================================");
@@ -153,12 +158,13 @@ export default class storage {
       }
     }
   }
+
   static async modifyQuizSentProperty(idQuizz, datesModified) {
     console.log("entered modifyQuizsentProp() with " + datesModified);
     let fileName = this.getFileName(idQuizz); //get file name to save according to quizz
     let currentScores = await this.getQuizScore(idQuizz);
-    currentScores.forEach(item => {
-      datesModified.forEach(date => {
+    currentScores.forEach((item) => {
+      datesModified.forEach((date) => {
         console.log(item.authored + " --- " + date);
         console.log("------------------");
         if (item.authored == date) {
@@ -167,13 +173,14 @@ export default class storage {
       });
     });
   }
+
   static async deleteScoreData(idQuizz) {
     let fileName = this.getFileName(idQuizz);
     console.log("=====================================");
     console.log("Clearing local scores for" + fileName);
     try {
       FileSystem.deleteAsync(filePath + fileName, {
-        idempotent: true
+        idempotent: true,
       });
       console.log("Local scores cleared");
       ToastAndroid.show("Local scores empty", ToastAndroid.LONG);
@@ -193,6 +200,7 @@ export default class storage {
     }
     return fileName;
   }
+
   static async getLanguageSetting() {
     console.log("=====================================");
     console.log("Fetching language setting");

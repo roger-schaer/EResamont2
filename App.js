@@ -8,15 +8,15 @@ export default function App() {
   const [language, setLanguage] = useState(1); //French default
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    async function fetchLanguage() {
+      let languageLocal = await storage.getLanguageSetting();
+      if (languageLocal && languageLocal > 0) {
+        setLanguage(languageLocal);
+      }
+    }
     fetchLanguage();
   }, []);
 
-  let fetchLanguage = async () => {
-    let languageLocal = await storage.getLanguageSetting();
-    if (languageLocal && languageLocal > 0) {
-      setLanguage(languageLocal);
-    }
-  };
   return (
     <Auth2Provider>
       <LoadingContext.Provider value={{ loading, setLoading }}>

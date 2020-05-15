@@ -2,7 +2,7 @@ import utilities from "../utils/utilities";
 
 let data = [
   { title: "title 1", language: { id: 1 } },
-  { title: "title 2", language: { id: 2 } }
+  { title: "title 2", language: { id: 2 } },
 ];
 let language = 2;
 

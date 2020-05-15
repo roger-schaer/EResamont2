@@ -4,7 +4,7 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
-  StyleSheet
+  StyleSheet,
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import { LanguageContext } from "../shared/LanguageContext";
@@ -18,12 +18,12 @@ export default function CustomDrawer({ navigation }) {
   const { language, setLanguage } = useContext(LanguageContext);
   const { setLoading } = useContext(LoadingContext);
 
-  const navigationClick = page => () => {
+  const navigationClick = (page) => () => {
     navigation.toggleDrawer();
     navigation.navigate(page);
   };
 
-  const languageClick = languageSelected => () => {
+  const languageClick = (languageSelected) => () => {
     storage.setLanguageSetting(languageSelected);
     setLanguage(languageSelected);
     navigation.closeDrawer();
@@ -55,12 +55,14 @@ export default function CustomDrawer({ navigation }) {
         { text: "YES", onPress: () => clearData() },
         {
           text: "NO",
-          style: "cancel"
-        }
+          style: "cancel",
+        },
       ],
       { cancelable: true }
     );
   };
+
+  // TODO - Make this hard-coded localization more elegant
   let translate = (name, language) => {
     if (name === "Home") {
       switch (language) {
@@ -178,6 +180,6 @@ const localStyles = StyleSheet.create({
     borderBottomColor: "black",
     borderBottomWidth: 1,
     marginTop: 5,
-    marginBottom: 10
-  }
+    marginBottom: 10,
+  },
 });

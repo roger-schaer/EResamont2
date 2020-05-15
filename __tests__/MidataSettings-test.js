@@ -13,9 +13,9 @@ console.log = jest.fn();
 ToastAndroid.show = jest.fn();
 
 const fakeNavigation = {
-  push: location => {
+  push: (location) => {
     fakePush(location);
-  }
+  },
 };
 
 let fakePush = jest.fn();
@@ -30,7 +30,7 @@ const FakeAuth2ProviderOnline = ({ children }) => {
         },
         signOutAsync: () => {
           fakeSignOutAsync();
-        }
+        },
       }}
     >
       {children}
@@ -50,7 +50,7 @@ const FakeAuth2ProviderOffline = ({ children }) => {
         },
         signOutAsync: () => {
           fakeSignOutAsync();
-        }
+        },
       }}
     >
       {children}

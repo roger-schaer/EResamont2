@@ -7,7 +7,8 @@ import utilities from "../utils/utilities";
 export default function Header({ title, navigation }) {
   const { language } = useContext(LanguageContext);
 
-  let findTitle = title => {
+  // TODO - Make this hard-coded localization more elegant
+  let findTitle = (title) => {
     let specialTitles = ["test title", "Midata", "My Data", "GPS"];
     if (specialTitles.includes(title)) {
       return title;
@@ -48,7 +49,7 @@ export default function Header({ title, navigation }) {
     <View style={localStyles.header}>
       <Text
         style={{
-          ...globalStyles.headerText
+          ...globalStyles.headerText,
         }}
         numberOfLines={2}
       >
@@ -60,5 +61,5 @@ export default function Header({ title, navigation }) {
 let width = Dimensions.get("window").width * 0.55;
 const border = { borderColor: "black", borderStyle: "solid", borderWidth: 0.7 };
 const localStyles = StyleSheet.create({
-  header: { height: "100%", width: width }
+  header: { height: "100%", width: width },
 });

@@ -7,7 +7,7 @@ import {
   Image,
   ActivityIndicator,
   ImageBackground,
-  ToastAndroid
+  ToastAndroid,
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import requestPage from "../utils/requestPage";
@@ -18,6 +18,7 @@ import storage from "../utils/storage";
 import ButtonView from "../components/ButtonView";
 
 import _ from "lodash";
+
 export default function Home({ navigation }) {
   const [data, setData] = useState([]);
   const { language } = useContext(LanguageContext);
@@ -38,6 +39,7 @@ export default function Home({ navigation }) {
     let dataExists = await storage.checkStoragePages();
     let connectionOK = connectionInfo && connectionInfo.isInternetReachable;
     //No local data, no connection
+    // TODO - Either remove or localize this (and check what happens on iOS with ToastAndroid)
     if (dataExists === false && connectionOK === false) {
       ToastAndroid.show("No local data, no connection", ToastAndroid.SHORT);
     } //No local data, connection ok => fetch online and save
@@ -56,6 +58,7 @@ export default function Home({ navigation }) {
     setData(data);
     setLoading(false);
   };
+
   let fetchLocalStorageWithUpdateCheck = async () => {
     let data = [];
     let dataNew = await requestPage.fetchUpdatedContent(null);
@@ -76,15 +79,17 @@ export default function Home({ navigation }) {
     }
     return data;
   };
+
   let fetchAndSaveData = async () => {
     const response = await requestPage.fetchAllPages();
     let dataToSave = formatFetchedData(response);
     await storage.saveAllStoragePages(dataToSave);
     return dataToSave;
   };
-  let formatFetchedData = data => {
+
+  let formatFetchedData = (data) => {
     let dataArray = [];
-    dataArray = data.filter(item => item.deleted === false);
+    dataArray = data.filter((item) => item.deleted === false);
     dataArray = _.sortBy(dataArray, "position");
     return dataArray;
   };
@@ -104,7 +109,7 @@ export default function Home({ navigation }) {
         <View style={localStyles.buttonContainerMain}>
           <ScrollView contentContainerStyle={localStyles.scrollViewMain}>
             {data.length > 1 ? (
-              data.map(item => (
+              data.map((item) => (
                 <ButtonView
                   key={item.id}
                   value={
@@ -131,26 +136,26 @@ export default function Home({ navigation }) {
 const localStyles = StyleSheet.create({
   logo: {
     flex: 1,
-    marginBottom: 25
+    marginBottom: 25,
   },
   logoImage: {
     width: "100%",
     height: "100%",
-    resizeMode: "contain"
+    resizeMode: "contain",
   },
   buttonContainerMain: {
-    flex: 3
+    flex: 3,
   },
   scrollViewMain: {
     flexGrow: 1,
     justifyContent: "flex-start",
-    alignItems: "center"
+    alignItems: "center",
   },
   loaderViewMain: { flex: 1, alignItems: "center", justifyContent: "center" },
   containerTopButtons: {
     flexDirection: "row",
     borderColor: "red",
-    borderStyle: "solid"
+    borderStyle: "solid",
   },
   topButton: {
     borderRadius: 10,
@@ -158,6 +163,6 @@ const localStyles = StyleSheet.create({
     width: "50%",
     height: 30,
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });

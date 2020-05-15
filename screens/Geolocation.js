@@ -6,6 +6,8 @@ import { WebView } from "react-native-webview";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 
+import ENV from "../env";
+
 export default function Geolocation({ navigation }) {
   let [location, setLocation] = useState(null);
   let [geoPermission, setGeoPermission] = useState(false);
@@ -58,7 +60,7 @@ export default function Geolocation({ navigation }) {
           <View style={globalStyles.mapContainer}>
             <WebView
               source={{
-                uri: `https://www.google.com/maps/place/${location.coords.latitude},%20${location.coords.longitude}`
+                uri: `${ENV.MAPS_BASE_URL}/${location.coords.latitude},%20${location.coords.longitude}`,
               }}
             ></WebView>
           </View>
@@ -70,6 +72,6 @@ export default function Geolocation({ navigation }) {
 
 const localStyles = StyleSheet.create({
   topContainer: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });

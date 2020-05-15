@@ -17,58 +17,58 @@ export default class jsonFhirConverter {
               text: "Headache",
               answer: [
                 {
-                  valueInteger: responsesObject[0]
-                }
-              ]
+                  valueInteger: responsesObject[0],
+                },
+              ],
             },
             {
               linkId: "1.2",
               text: "Gastrointestinal symptoms",
               answer: [
                 {
-                  valueInteger: responsesObject[1]
-                }
-              ]
+                  valueInteger: responsesObject[1],
+                },
+              ],
             },
             {
               linkId: "1.3",
               text: "Fatigue and or weakness",
               answer: [
                 {
-                  valueInteger: responsesObject[2]
-                }
-              ]
+                  valueInteger: responsesObject[2],
+                },
+              ],
             },
             {
               linkId: "1.4",
               text: "Dizziness and or light-headedness",
               answer: [
                 {
-                  valueInteger: responsesObject[3]
-                }
-              ]
+                  valueInteger: responsesObject[3],
+                },
+              ],
             },
             {
               linkId: "1.5",
               text: "Difficulty sleeping",
               answer: [
                 {
-                  valueInteger: responsesObject[4]
-                }
-              ]
+                  valueInteger: responsesObject[4],
+                },
+              ],
             },
             {
               linkId: "1.6",
               text: "Total score",
               answer: [
                 {
-                  valueInteger: responsesObject[5]
-                }
-              ]
-            }
-          ]
-        }
-      ]
+                  valueInteger: responsesObject[5],
+                },
+              ],
+            },
+          ],
+        },
+      ],
     };
   }
   static createOxygenQuestionnaireResponse(responses) {
@@ -89,31 +89,31 @@ export default class jsonFhirConverter {
               text: "Altitude (meters)",
               answer: [
                 {
-                  valueInteger: responsesObject[0]
-                }
-              ]
+                  valueInteger: responsesObject[0],
+                },
+              ],
             },
             {
               linkId: "1.2",
               text: "Saturation (%)",
               answer: [
                 {
-                  valueInteger: responsesObject[1]
-                }
-              ]
+                  valueInteger: responsesObject[1],
+                },
+              ],
             },
             {
               linkId: "1.3",
               text: "Result",
               answer: [
                 {
-                  valueInteger: responsesObject[2]
-                }
-              ]
-            }
-          ]
-        }
-      ]
+                  valueInteger: responsesObject[2],
+                },
+              ],
+            },
+          ],
+        },
+      ],
     };
   }
   static jsonFhirToStringSimplified(idQuizz, jsonFile) {

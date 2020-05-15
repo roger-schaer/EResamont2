@@ -9,7 +9,7 @@ import {
   Alert,
   ToastAndroid,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import { LanguageContext } from "../shared/LanguageContext";
@@ -20,6 +20,7 @@ import requestPostMidata from "../utils/requestPostMidata";
 import jsonFhirConverter from "../utils/jsonFhirConverter";
 
 export default function MyData({ navigation }) {
+  // TODO - Actually localize this screen!
   const { language, setLanguage } = useContext(LanguageContext);
   const { authState, signInAsync } = useAuth2();
   const [lakeLouiseScores, setLakeLouiseScores] = useState(null);
@@ -43,14 +44,14 @@ export default function MyData({ navigation }) {
       [
         {
           text: "Ok",
-          style: "cancel"
-        }
+          style: "cancel",
+        },
       ],
       { cancelable: true }
     );
   };
 
-  let confirmClearScoreClick = async idQuizz => {
+  let confirmClearScoreClick = async (idQuizz) => {
     let result = await storage.getQuizScore(idQuizz);
     if (result) {
       Alert.alert(
@@ -62,12 +63,12 @@ export default function MyData({ navigation }) {
             onPress: () => {
               storage.deleteScoreData(idQuizz);
               fetchMyData();
-            }
+            },
           },
           {
             text: "NO",
-            style: "cancel"
-          }
+            style: "cancel",
+          },
         ],
         { cancelable: true }
       );
@@ -77,8 +78,9 @@ export default function MyData({ navigation }) {
   let sendToServer = async () => {
     if (authState) {
       try {
+        // TODO - Refactor this duplicate code
         if (lakeLouiseScores) {
-          lakeLouiseScores.forEach(async item => {
+          lakeLouiseScores.forEach(async (item) => {
             if (!item.sentToServer) {
               console.log(" send to server: " + JSON.stringify(item));
               let response = await requestPostMidata(
@@ -96,7 +98,7 @@ export default function MyData({ navigation }) {
           });
         }
         if (oxygenScores) {
-          oxygenScores.forEach(async item => {
+          oxygenScores.forEach(async (item) => {
             if (!item.sentToServer) {
               console.log(" send to server: " + JSON.stringify(item));
               let response = await requestPostMidata(
@@ -139,7 +141,7 @@ export default function MyData({ navigation }) {
               alignSelf: "center",
               backgroundColor: "darkblue",
               marginBottom: 10,
-              marginTop: 0
+              marginTop: 0,
             }}
           />
           <Text style={{ fontWeight: "bold", fontSize: 25 }}>
@@ -152,7 +154,7 @@ export default function MyData({ navigation }) {
             </Text>
             <View style={localStyles.scoresContainer}>
               {lakeLouiseScores ? (
-                lakeLouiseScores.map(item => (
+                lakeLouiseScores.map((item) => (
                   <TouchableOpacity
                     key={item.authored}
                     onPress={() => openScorePopup("Lake Louise Quizz", item)}
@@ -175,7 +177,7 @@ export default function MyData({ navigation }) {
             </Text>
             <View style={localStyles.scoresContainer}>
               {oxygenScores ? (
-                oxygenScores.map(item => (
+                oxygenScores.map((item) => (
                   <TouchableOpacity
                     key={item.authored}
                     onPress={() =>
@@ -218,21 +220,21 @@ export default function MyData({ navigation }) {
 const localStyles = StyleSheet.create({
   logoImage: {
     width: "100%",
-    resizeMode: "contain"
+    resizeMode: "contain",
   },
   midataContainer: {
     padding: 5,
     flex: 1,
-    backgroundColor: "rgba(255,255,255, 0.75)"
+    backgroundColor: "rgba(255,255,255, 0.75)",
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   scrollView: {
     flexGrow: 1,
     justifyContent: "flex-start",
-    marginTop: 10
+    marginTop: 10,
   },
   deleteButton: {
     ...globalStyles.midataButton,
@@ -240,19 +242,19 @@ const localStyles = StyleSheet.create({
     width: "40%",
     marginTop: 0,
     marginBottom: 5,
-    backgroundColor: "brown"
+    backgroundColor: "brown",
   },
   topMenuDivider: {
     borderBottomColor: "black",
     borderBottomWidth: 1,
     marginTop: 5,
-    marginBottom: 10
+    marginBottom: 10,
   },
   bigMenuDivider: {
     borderBottomColor: "black",
-    borderBottomWidth: 10
+    borderBottomWidth: 10,
   },
   scoresContainer: {
-    padding: 10
-  }
+    padding: 10,
+  },
 });

@@ -17,7 +17,7 @@ let navigation = {
   },
   navigate: () => {
     console.log("navigate called");
-  }
+  },
 };
 
 let titleTab = [{ title: "title 1" }, { title: "title 2" }];
@@ -30,7 +30,7 @@ jest.mock("../routes/Drawer", () => "AppNavigator");
 
 describe("Header", () => {
   const language = 1; //French
-  const setLanguage = newLanguage => {
+  const setLanguage = (newLanguage) => {
     this.language = newLanguage;
   };
   const loading = true;

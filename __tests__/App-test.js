@@ -6,7 +6,7 @@ import App from "../App";
 import { act } from "react-test-renderer";
 
 jest.mock("expo", () => ({
-  AppLoading: "AppLoading"
+  AppLoading: "AppLoading",
 }));
 
 jest.mock("../routes/Drawer", () => "AppNavigator");

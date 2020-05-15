@@ -14,40 +14,40 @@ export const navigationNoChildPlainText = {
           id: 40,
           language: {
             id: 2,
-            language: "Italian"
+            language: "Italian",
           },
           title: "Francia",
           text: "",
           plaintext:
-            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> Itailan page</p>"
+            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> Itailan page</p>",
         },
         {
           id: 39,
           language: {
             id: 1,
-            language: "French"
+            language: "French",
           },
           title: "France",
           text: "",
           plaintext:
-            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> French page</p>"
+            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> French page</p>",
         },
         {
           id: 98,
           language: {
             id: 3,
-            language: "English"
+            language: "English",
           },
           title: "France",
           text: "",
           plaintext:
-            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> English page</p>"
-        }
+            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> English page</p>",
+        },
       ],
       children: [],
-      deleted: false
-    }
-  }
+      deleted: false,
+    },
+  },
 };
 
 export const navigationId95 = {
@@ -64,41 +64,42 @@ export const navigationId95 = {
           id: 40,
           language: {
             id: 2,
-            language: "Italian"
+            language: "Italian",
           },
           title: "Francia",
           text: "",
           plaintext:
-            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> Itailan page</p>"
+            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> Itailan page</p>",
         },
         {
           id: 39,
           language: {
             id: 1,
-            language: "French"
+            language: "French",
           },
           title: "France",
           text: "",
           plaintext:
-            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> French page</p>"
+            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> French page</p>",
         },
         {
           id: 98,
           language: {
             id: 3,
-            language: "English"
+            language: "English",
           },
           title: "France",
           text: "",
           plaintext:
-            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> English page</p>"
-        }
+            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> English page</p>",
+        },
       ],
       children: [],
-      deleted: false
-    }
-  }
+      deleted: false,
+    },
+  },
 };
+
 export const navigationId100 = {
   state: {
     params: {
@@ -113,40 +114,40 @@ export const navigationId100 = {
           id: 40,
           language: {
             id: 2,
-            language: "Italian"
+            language: "Italian",
           },
           title: "Francia",
           text: "",
           plaintext:
-            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> Itailan page</p>"
+            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> Itailan page</p>",
         },
         {
           id: 39,
           language: {
             id: 1,
-            language: "French"
+            language: "French",
           },
           title: "France",
           text: "",
           plaintext:
-            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> French page</p>"
+            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> French page</p>",
         },
         {
           id: 98,
           language: {
             id: 3,
-            language: "English"
+            language: "English",
           },
           title: "France",
           text: "",
           plaintext:
-            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> English page</p>"
-        }
+            "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> English page</p>",
+        },
       ],
       children: [],
-      deleted: false
-    }
-  }
+      deleted: false,
+    },
+  },
 };
 
 export const navigationNoChildText = {
@@ -163,40 +164,40 @@ export const navigationNoChildText = {
           id: 40,
           language: {
             id: 2,
-            language: "Italian"
+            language: "Italian",
           },
           title: "Francia",
           text:
             "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> Italian page</p>",
-          plaintext: ""
+          plaintext: "",
         },
         {
           id: 39,
           language: {
             id: 1,
-            language: "French"
+            language: "French",
           },
           title: "France",
           text:
             "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> French page</p>",
-          plaintext: ""
+          plaintext: "",
         },
         {
           id: 98,
           language: {
             id: 3,
-            language: "English"
+            language: "English",
           },
           title: "France",
           text:
             "<p><b>ALTIDOC - Téléconsultation et médecine de montagne</b> English page</p>",
-          plaintext: ""
-        }
+          plaintext: "",
+        },
       ],
       children: [],
-      deleted: false
-    }
-  }
+      deleted: false,
+    },
+  },
 };
 
 export const navigationWithChildrenNoText = {
@@ -215,22 +216,22 @@ export const navigationWithChildrenNoText = {
           language: { id: 1, language: "French" },
           title: "Consultation de médecine de montagne",
           text: "",
-          plaintext: ""
+          plaintext: "",
         },
         {
           id: 10,
           language: { id: 2, language: "Italian" },
           title: "Ambulatori di medicina di montagna",
           text: "",
-          plaintext: ""
+          plaintext: "",
         },
         {
           id: 89,
           language: { id: 3, language: "English" },
           title: "Mountain medicine consultation",
           text: "",
-          plaintext: ""
-        }
+          plaintext: "",
+        },
       ],
       children: [
         {
@@ -246,25 +247,25 @@ export const navigationWithChildrenNoText = {
               language: { id: 2, language: "Italian" },
               title: "Francia",
               text: "<p>Page in italian</p>",
-              plaintext: ""
+              plaintext: "",
             },
             {
               id: 39,
               language: { id: 1, language: "French" },
               title: "France",
               text: "<p>Page in French</p>",
-              plaintext: ""
+              plaintext: "",
             },
             {
               id: 98,
               language: { id: 3, language: "English" },
               title: "France",
               text: "<p>Page in English</p>",
-              plaintext: ""
-            }
+              plaintext: "",
+            },
           ],
           children: [],
-          deleted: false
+          deleted: false,
         },
         {
           id: 90,
@@ -279,25 +280,25 @@ export const navigationWithChildrenNoText = {
               language: { id: 1, language: "French" },
               title: "Italie",
               text: "<p>Page in French</p>",
-              plaintext: ""
+              plaintext: "",
             },
             {
               id: 14,
               language: { id: 2, language: "Italian" },
               title: "Italia",
               text: "<p>Page in Italian</p>",
-              plaintext: ""
+              plaintext: "",
             },
             {
               id: 91,
               language: { id: 3, language: "English" },
               title: "Italy",
               text: "<p>Page in English</p>",
-              plaintext: ""
-            }
+              plaintext: "",
+            },
           ],
           children: [],
-          deleted: false
+          deleted: false,
         },
         {
           id: 117,
@@ -312,25 +313,25 @@ export const navigationWithChildrenNoText = {
               language: { id: 1, language: "French" },
               title: "Suisse",
               text: "<p>Page in French</p>",
-              plaintext: ""
+              plaintext: "",
             },
             {
               id: 68,
               language: { id: 2, language: "Italian" },
               title: "Svizzera",
               text: "<p>Page in Italian</p>",
-              plaintext: ""
+              plaintext: "",
             },
             {
               id: 113,
               language: { id: 3, language: "English" },
               title: "Switzerland",
               text: "<p>Page in English</p>",
-              plaintext: ""
-            }
+              plaintext: "",
+            },
           ],
           children: [],
-          deleted: false
+          deleted: false,
         },
         {
           id: 115,
@@ -345,30 +346,30 @@ export const navigationWithChildrenNoText = {
               language: { id: 2, language: "Italian" },
               title: "In Europa",
               text: "<p>Page in Italian</p>",
-              plaintext: ""
+              plaintext: "",
             },
             {
               id: 63,
               language: { id: 1, language: "French" },
               title: "En Europe",
               text: "<p>Page in French</p>",
-              plaintext: ""
+              plaintext: "",
             },
             {
               id: 112,
               language: { id: 3, language: "English" },
               title: "In Europe",
               text: "<p>Page in English</p>",
-              plaintext: ""
-            }
+              plaintext: "",
+            },
           ],
           children: [],
-          deleted: false
-        }
+          deleted: false,
+        },
       ],
-      deleted: false
-    }
-  }
+      deleted: false,
+    },
+  },
 };
 
 export const navigationWithChildrenAndText = {
@@ -386,33 +387,33 @@ export const navigationWithChildrenAndText = {
           id: 129,
           language: {
             id: 2,
-            language: "Italian"
+            language: "Italian",
           },
           title: "Questionari",
           text: "<p>Text in Italian</p>",
-          plaintext: ""
+          plaintext: "",
         },
         {
           id: 127,
           language: {
             id: 3,
-            language: "English"
+            language: "English",
           },
           title: "Questionnaires",
           text: "<p>Text in English</p>",
-          plaintext: ""
+          plaintext: "",
         },
         {
           id: 128,
           language: {
             id: 1,
-            language: "French"
+            language: "French",
           },
           title: "Questionnaires",
           text: "",
           plaintext:
-            "<p>Text in French.  Also it's located in plaintext field.</p>"
-        }
+            "<p>Text in French.  Also it's located in plaintext field.</p>",
+        },
       ],
       children: [
         {
@@ -427,35 +428,35 @@ export const navigationWithChildrenAndText = {
               id: 134,
               language: {
                 id: 1,
-                language: "French"
+                language: "French",
               },
               title: "Questionnaire de satisfaction",
               text: "",
-              plaintext: "<p>Page in French.</p>"
+              plaintext: "<p>Page in French.</p>",
             },
             {
               id: 135,
               language: {
                 id: 2,
-                language: "Italian"
+                language: "Italian",
               },
               title: "Sondaggio di soddisfazione",
               text: "<p>Page in Italian</p>",
-              plaintext: ""
+              plaintext: "",
             },
             {
               id: 133,
               language: {
                 id: 3,
-                language: "English"
+                language: "English",
               },
               title: "Questionnaire of satisfaction",
               text: "<p>Page in English</p>",
-              plaintext: ""
-            }
+              plaintext: "",
+            },
           ],
           children: [],
-          deleted: false
+          deleted: false,
         },
         {
           id: 124,
@@ -469,35 +470,35 @@ export const navigationWithChildrenAndText = {
               id: 83,
               language: {
                 id: 3,
-                language: "English"
+                language: "English",
               },
               title: "Mountaineer General Health Survey",
               text: "",
-              plaintext: "<p>Page in English</p>"
+              plaintext: "<p>Page in English</p>",
             },
             {
               id: 82,
               language: {
                 id: 2,
-                language: "Italian"
+                language: "Italian",
               },
               title: "Questionario sulla salute degli alpinisti",
               text: "",
-              plaintext: "<p>Page in Italian</p>"
+              plaintext: "<p>Page in Italian</p>",
             },
             {
               id: 81,
               language: {
                 id: 1,
-                language: "French"
+                language: "French",
               },
               title: "Enquête générale sur la santé des alpinistes",
               text: "",
-              plaintext: "<p>Page in French</p>"
-            }
+              plaintext: "<p>Page in French</p>",
+            },
           ],
           children: [],
-          deleted: false
+          deleted: false,
         },
         {
           id: 125,
@@ -511,35 +512,35 @@ export const navigationWithChildrenAndText = {
               id: 124,
               language: {
                 id: 3,
-                language: "English"
+                language: "English",
               },
               title: "Altitude’s acute diseases Survey",
               text: "",
-              plaintext: "<p>Page in English</p>"
+              plaintext: "<p>Page in English</p>",
             },
             {
               id: 125,
               language: {
                 id: 1,
-                language: "French"
+                language: "French",
               },
               title: "Sondage sur les maladies aiguës d’altitude",
               text: "",
-              plaintext: "<p>Page in French</p>"
+              plaintext: "<p>Page in French</p>",
             },
             {
               id: 126,
               language: {
                 id: 2,
-                language: "Italian"
+                language: "Italian",
               },
               title: "Questionario sulle malattie acute da altitudine",
               text: "",
-              plaintext: "<p>Page in Italian</p>"
-            }
+              plaintext: "<p>Page in Italian</p>",
+            },
           ],
           children: [],
-          deleted: false
+          deleted: false,
         },
         {
           id: 127,
@@ -553,38 +554,38 @@ export const navigationWithChildrenAndText = {
               id: 130,
               language: {
                 id: 3,
-                language: "English"
+                language: "English",
               },
               title: "Anonymous identifier",
               text: "",
-              plaintext: "<p>Page in English</p>"
+              plaintext: "<p>Page in English</p>",
             },
             {
               id: 132,
               language: {
                 id: 2,
-                language: "Italian"
+                language: "Italian",
               },
               title: "Identificativo anonimo",
               text: "",
-              plaintext: "<p>Page in Italian</p>"
+              plaintext: "<p>Page in Italian</p>",
             },
             {
               id: 131,
               language: {
                 id: 1,
-                language: "French"
+                language: "French",
               },
               title: "Identificateur anonyme",
               text: "",
-              plaintext: "<p>Page in French</p>"
-            }
+              plaintext: "<p>Page in French</p>",
+            },
           ],
           children: [],
-          deleted: false
-        }
+          deleted: false,
+        },
       ],
-      deleted: false
-    }
-  }
+      deleted: false,
+    },
+  },
 };

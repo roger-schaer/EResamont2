@@ -6,7 +6,7 @@ import {
   Text,
   Dimensions,
   ImageBackground,
-  Platform
+  Platform,
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import { WebView } from "react-native-webview";
@@ -18,21 +18,21 @@ export default function SubScreen({ navigation }) {
   const [tab] = useState(navigation.state.params);
   const { language } = useContext(LanguageContext);
 
-  let checkScreenType = tab => {
+  let checkScreenType = (tab) => {
     let result = 0;
     if (
       tab.children.length < 2 &&
       (tab.pages_lang[utilities.findLanguageIndex(tab.pages_lang, language)]
-        .plaintext != "" ||
+        .plaintext !== "" ||
         tab.pages_lang[utilities.findLanguageIndex(tab.pages_lang, language)]
-          .text != "")
+          .text !== "")
     ) {
       result = 3; //LEAF
     } else if (
       tab.pages_lang[utilities.findLanguageIndex(tab.pages_lang, language)]
-        .plaintext != "" ||
+        .plaintext !== "" ||
       tab.pages_lang[utilities.findLanguageIndex(tab.pages_lang, language)]
-        .text != ""
+        .text !== ""
     ) {
       result = 2; // SUBSCREEN WITH WEB VIEW
     } else {
@@ -44,7 +44,8 @@ export default function SubScreen({ navigation }) {
     Platform.OS === "ios"
       ? '<meta name="viewport" content="width=device-width, initial-scale=1, max-scale=1">'
       : ""; //enlarge web text view for ios
-  let generateJavaScript = id => {
+
+  let generateJavaScript = (id) => {
     //enlarge radio buttons on android, and get input value from the 2 quizzes
     let generatedJS =
       Platform.OS === "ios"
@@ -77,6 +78,7 @@ export default function SubScreen({ navigation }) {
     }
     return generatedJS;
   };
+
   if (checkScreenType(tab) === 3) {
     //LEAF
     return (
@@ -95,9 +97,9 @@ export default function SubScreen({ navigation }) {
                 : forIOS +
                   tab.pages_lang[
                     utilities.findLanguageIndex(tab.pages_lang, language)
-                  ].text
+                  ].text,
           }}
-          onMessage={event => {
+          onMessage={(event) => {
             console.log(event.nativeEvent.data);
             storage.saveQuizScore(tab.id, event.nativeEvent.data);
           }}
@@ -105,7 +107,7 @@ export default function SubScreen({ navigation }) {
           javaScriptEnabled={tab.id == 95 || tab.id == 100}
           style={{
             flex: 1,
-            height: height
+            height: height,
           }}
           testID={"sub-webview"}
         />
@@ -133,13 +135,13 @@ export default function SubScreen({ navigation }) {
                   : forIOS +
                     tab.pages_lang[
                       utilities.findLanguageIndex(tab.pages_lang, language)
-                    ].text.replace(/(\r\n|\n|\r)/gm, " ")
+                    ].text.replace(/(\r\n|\n|\r)/gm, " "),
             }}
             style={localStyles.sectionViewTopWebView}
           />
           <View style={localStyles.sectionViewBottom}>
             {tab.children.map(
-              child =>
+              (child) =>
                 child.deleted === false && (
                   <ButtonView
                     style={globalStyles.button}
@@ -171,7 +173,7 @@ export default function SubScreen({ navigation }) {
             contentContainerStyle={localStyles.sectionViewButtonsOnlyScrollView}
           >
             {tab.children.map(
-              child =>
+              (child) =>
                 child.deleted === false && (
                   <ButtonView
                     style={globalStyles.button}
@@ -205,12 +207,12 @@ const localStyles = StyleSheet.create({
     flex: 1,
     marginTop: 20,
     justifyContent: "flex-start",
-    alignItems: "center"
+    alignItems: "center",
   },
   sectionViewButtonsOnly: { flex: 1, marginTop: 20 },
   sectionViewButtonsOnlyScrollView: {
     flexGrow: 1,
     justifyContent: "flex-start",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 });

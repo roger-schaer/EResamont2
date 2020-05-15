@@ -5,12 +5,12 @@ import {
   StyleSheet,
   ImageBackground,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import { Linking } from "expo";
 export default function EmergencyCalls() {
-  let callNumber = number => {
+  let callNumber = (number) => {
     Linking.openURL("tel:" + number);
   };
 
@@ -69,31 +69,31 @@ const localStyles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     padding: 15,
-    backgroundColor: "rgba(255,255,255, 0.75)"
+    backgroundColor: "rgba(255,255,255, 0.75)",
   },
   regionContainer: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "flex-start"
+    justifyContent: "flex-start",
   },
   headerText: {
     fontSize: 27,
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 15,
-    flex: 1
+    flex: 1,
   },
   flag: { flex: 3 },
   buttonText: {
     fontSize: 18,
     textAlign: "center",
     margin: 5,
-    color: "white"
+    color: "white",
   },
   flagButton: {
     width: "75%",
     height: "75%",
     resizeMode: "contain",
-    alignSelf: "center"
-  }
+    alignSelf: "center",
+  },
 });

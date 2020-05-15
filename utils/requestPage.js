@@ -1,6 +1,9 @@
 import { AsyncStorage } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
-const eresamontURL = "http://vlheresamont2.hevs.ch/api/v1";
+
+import ENV from "../env";
+
+const eresamontURL = ENV.ERESAMONT_BACKEND_URL;
 
 export default class requestPage {
   static async checkConnection() {
@@ -13,13 +16,13 @@ export default class requestPage {
   static async fetchAllPages() {
     console.log("=====================================");
     console.log("Fetching online data");
-    this.checkConnection();
+    await this.checkConnection();
     try {
       let response = await fetch(`${eresamontURL}/pages`, {
         method: "GET",
         headers: {
-          Accept: "application/json"
-        }
+          Accept: "application/json",
+        },
       });
       let timestamp = new Date().getTime();
       console.log("Online data fetched at UNIX: " + timestamp);
@@ -42,8 +45,8 @@ export default class requestPage {
       let response = await fetch(`${eresamontURL}/pages?updated=` + timestamp, {
         method: "GET",
         headers: {
-          Accept: "application/json"
-        }
+          Accept: "application/json",
+        },
       });
       return await response.json();
     } catch (e) {

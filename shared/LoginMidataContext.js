@@ -4,19 +4,15 @@ import * as AppAuth from "expo-app-auth";
 import * as SecureStore from "expo-secure-store";
 import requestGetMidata from "../utils/requestGetMidata";
 
+import ENV from "../env";
+
 export const Auth2Context = React.createContext();
 export const useAuth2 = () => useContext(Auth2Context);
 export const Auth2Provider = ({ children }) => {
   const StorageKey = "EResamont2MidataOAuthKey";
   const config = {
-    issuer: "https://test.midata.coop/fhir/metadata",
-    clientId: "eresamont2-test",
-    serviceConfiguration: {
-      authorizationEndpoint: "https://test.midata.coop/authservice",
-      tokenEndpoint: "https://test.midata.coop/v1/token",
-      revocationEndpoint: "https://test.midata.coop/v1/token"
-    },
-    redirectUrl: AppAuth.OAuthRedirect + ":/oauthredirect"
+    ...ENV.MIDATA_AUTH2_CONFIG,
+    redirectUrl: AppAuth.OAuthRedirect + ":/oauthredirect", // TODO - Check if this works in standalone app
   };
 
   const [authState, setAuthState] = useState(null);
@@ -45,7 +41,7 @@ export const Auth2Provider = ({ children }) => {
     try {
       await AppAuth.revokeAsync(config, {
         token: accessToken,
-        isClientIdProvided: true
+        isClientIdProvided: true,
       });
       await SecureStore.deleteItemAsync(StorageKey);
       console.log("sign out completed");
@@ -57,7 +53,7 @@ export const Auth2Provider = ({ children }) => {
     }
   };
 
-  const cacheAuthAsync = async authState => {
+  const cacheAuthAsync = async (authState) => {
     return await SecureStore.setItemAsync(
       StorageKey,
       JSON.stringify(authState)
@@ -116,7 +112,7 @@ export const Auth2Provider = ({ children }) => {
         getCachedAuthAsync,
         checkIfTokenExpired,
         refreshAuthAsync,
-        getLoggedUserName
+        getLoggedUserName,
       }}
     >
       {children}

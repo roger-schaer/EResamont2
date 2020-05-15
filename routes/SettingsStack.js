@@ -14,9 +14,9 @@ const screens = {
       return {
         headerTitle: () => <Header title={"Midata"} navigation={navigation} />,
         headerLeft: () => <HeaderLeft navigation={navigation} />,
-        headerRight: () => <HeaderRight navigation={navigation} />
+        headerRight: () => <HeaderRight navigation={navigation} />,
       };
-    }
+    },
   },
   MyData: {
     screen: MyData,
@@ -24,17 +24,17 @@ const screens = {
       return {
         headerTitle: () => <Header title={"My Data"} navigation={navigation} />,
         headerLeft: () => <HeaderLeft navigation={navigation} />,
-        headerRight: () => <HeaderRight navigation={navigation} />
+        headerRight: () => <HeaderRight navigation={navigation} />,
       };
-    }
-  }
+    },
+  },
 };
 
 const SettingsStack = createStackNavigator(screens, {
   defaultNavigationOptions: {
     headerStyle: globalStyles.headerStyle,
-    headerTintColor: "black"
-  }
+    headerTintColor: "black",
+  },
 });
 
 export default SettingsStack;

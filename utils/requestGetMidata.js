@@ -1,4 +1,4 @@
-export default async function(url, authState, signInAsync) {
+export default async function (url, authState, signInAsync) {
   try {
     if (authState) {
       let response = await fetch(url, {
@@ -6,8 +6,8 @@ export default async function(url, authState, signInAsync) {
         headers: {
           Accepts: "application/json",
           "Content-Type": "application/json",
-          Authorization: `Bearer ${authState.accessToken}`
-        }
+          Authorization: `Bearer ${authState.accessToken}`,
+        },
       });
       let data = await response.json();
       return data;
