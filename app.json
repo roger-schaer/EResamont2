@@ -21,12 +21,12 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "ch.hevs.aislab.sapao.eresamont",
-      "buildNumber": "2.0.3"
+      "bundleIdentifier": "ch.hevs.aislab.sapao.eResamont",
+      "buildNumber": "2.0.4"
     },
     "android": {
-      "package": "ch.hevs.aislab.sapao.eresamont",
-      "versionCode": 4,
+      "package": "ch.hevs.aislab.sapao.eResamont",
+      "versionCode": 404,
       "splash": {
         "mdpi": "./assets/images/splash.png",
         "backgroundColor": "#ffffff",
