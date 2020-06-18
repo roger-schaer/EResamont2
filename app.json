@@ -4,8 +4,11 @@
     "description": "High altitude hiking and mountaineering guide ab out health risks and danger in the mountains.",
     "slug": "EResamont2",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "2.0.4",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -18,7 +21,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "ch.hevs.aislab.sapao.eResamont",
