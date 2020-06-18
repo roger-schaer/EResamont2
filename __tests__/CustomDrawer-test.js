@@ -131,8 +131,7 @@ describe("CustomDrawer", () => {
     expect(language).toEqual(1);
   });
 
-  it("changes language to german (not implemented yet)", () => {
-    alert = jest.fn();
+  it("changes language to german", () => {
     const { getByTestId } = render(
       <LoadingContext.Provider value={{ loading }}>
         <LanguageContext.Provider value={{ language, setLanguage }}>
@@ -142,7 +141,7 @@ describe("CustomDrawer", () => {
     );
     const element = getByTestId("button-view-Deutsch");
     fireEvent.press(element);
-    expect(alert).toHaveBeenCalledTimes(1);
+    expect(language).toEqual(4);
   });
 
   it("goes to home page after", () => {

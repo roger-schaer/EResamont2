@@ -544,169 +544,184 @@ exports[`SubScreen - Render with children and text 1`] = `
     <View
       style={
         Object {
-          "alignItems": "center",
           "flex": 1,
           "justifyContent": "flex-start",
-          "marginTop": 20,
         }
       }
     >
-      <View
-        accessible={true}
-        focusable={true}
-        isTVSelectable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
+      <RCTScrollView
+        contentContainerStyle={
           Object {
             "alignItems": "center",
-            "backgroundColor": "#232323",
-            "borderRadius": 10,
-            "height": 40,
-            "justifyContent": "center",
-            "marginTop": 10,
-            "opacity": 1,
-            "padding": 10,
-            "width": "80%",
+            "flexGrow": 1,
+            "justifyContent": "flex-start",
           }
         }
-        testID="button-view-Questionnaire de satisfaction"
-      >
-        <Text
-          style={
-            Object {
-              "color": "#ffffff",
-              "fontFamily": "EuphemiaUCAS-Bold",
-              "textAlign": "center",
-              "textAlignVertical": "center",
-            }
-          }
-        >
-          Questionnaire de satisfaction
-        </Text>
-      </View>
-      <View
-        accessible={true}
-        focusable={true}
-        isTVSelectable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
           Object {
-            "alignItems": "center",
-            "backgroundColor": "#232323",
-            "borderRadius": 10,
-            "height": 40,
-            "justifyContent": "center",
-            "marginTop": 10,
-            "opacity": 1,
-            "padding": 10,
-            "width": "80%",
+            "flex": 1,
           }
         }
-        testID="button-view-Enquête générale sur la santé des alpinistes"
       >
-        <Text
-          style={
-            Object {
-              "color": "#ffffff",
-              "fontFamily": "EuphemiaUCAS-Bold",
-              "textAlign": "center",
-              "textAlignVertical": "center",
+        <View>
+          <View
+            accessible={true}
+            focusable={true}
+            isTVSelectable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#232323",
+                "borderRadius": 10,
+                "height": 40,
+                "justifyContent": "center",
+                "marginTop": 10,
+                "opacity": 1,
+                "padding": 10,
+                "width": "80%",
+              }
             }
-          }
-        >
-          Enquête générale sur la santé des alpinistes
-        </Text>
-      </View>
-      <View
-        accessible={true}
-        focusable={true}
-        isTVSelectable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "alignItems": "center",
-            "backgroundColor": "#232323",
-            "borderRadius": 10,
-            "height": 40,
-            "justifyContent": "center",
-            "marginTop": 10,
-            "opacity": 1,
-            "padding": 10,
-            "width": "80%",
-          }
-        }
-        testID="button-view-Sondage sur les maladies aiguës d’altitude"
-      >
-        <Text
-          style={
-            Object {
-              "color": "#ffffff",
-              "fontFamily": "EuphemiaUCAS-Bold",
-              "textAlign": "center",
-              "textAlignVertical": "center",
+            testID="button-view-Questionnaire de satisfaction"
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "EuphemiaUCAS-Bold",
+                  "textAlign": "center",
+                  "textAlignVertical": "center",
+                }
+              }
+            >
+              Questionnaire de satisfaction
+            </Text>
+          </View>
+          <View
+            accessible={true}
+            focusable={true}
+            isTVSelectable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#232323",
+                "borderRadius": 10,
+                "height": 40,
+                "justifyContent": "center",
+                "marginTop": 10,
+                "opacity": 1,
+                "padding": 10,
+                "width": "80%",
+              }
             }
-          }
-        >
-          Sondage sur les maladies aiguës d’altitude
-        </Text>
-      </View>
-      <View
-        accessible={true}
-        focusable={true}
-        isTVSelectable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "alignItems": "center",
-            "backgroundColor": "#232323",
-            "borderRadius": 10,
-            "height": 40,
-            "justifyContent": "center",
-            "marginTop": 10,
-            "opacity": 1,
-            "padding": 10,
-            "width": "80%",
-          }
-        }
-        testID="button-view-Identificateur anonyme"
-      >
-        <Text
-          style={
-            Object {
-              "color": "#ffffff",
-              "fontFamily": "EuphemiaUCAS-Bold",
-              "textAlign": "center",
-              "textAlignVertical": "center",
+            testID="button-view-Enquête générale sur la santé des alpinistes"
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "EuphemiaUCAS-Bold",
+                  "textAlign": "center",
+                  "textAlignVertical": "center",
+                }
+              }
+            >
+              Enquête générale sur la santé des alpinistes
+            </Text>
+          </View>
+          <View
+            accessible={true}
+            focusable={true}
+            isTVSelectable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#232323",
+                "borderRadius": 10,
+                "height": 40,
+                "justifyContent": "center",
+                "marginTop": 10,
+                "opacity": 1,
+                "padding": 10,
+                "width": "80%",
+              }
             }
-          }
-        >
-          Identificateur anonyme
-        </Text>
-      </View>
+            testID="button-view-Sondage sur les maladies aiguës d’altitude"
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "EuphemiaUCAS-Bold",
+                  "textAlign": "center",
+                  "textAlignVertical": "center",
+                }
+              }
+            >
+              Sondage sur les maladies aiguës d’altitude
+            </Text>
+          </View>
+          <View
+            accessible={true}
+            focusable={true}
+            isTVSelectable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#232323",
+                "borderRadius": 10,
+                "height": 40,
+                "justifyContent": "center",
+                "marginTop": 10,
+                "opacity": 1,
+                "padding": 10,
+                "width": "80%",
+              }
+            }
+            testID="button-view-Identificateur anonyme"
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "EuphemiaUCAS-Bold",
+                  "textAlign": "center",
+                  "textAlignVertical": "center",
+                }
+              }
+            >
+              Identificateur anonyme
+            </Text>
+          </View>
+        </View>
+      </RCTScrollView>
     </View>
   </View>
 </View>
