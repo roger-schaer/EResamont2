@@ -140,23 +140,31 @@ export default function SubScreen({ navigation }) {
             style={localStyles.sectionViewTopWebView}
           />
           <View style={localStyles.sectionViewBottom}>
-            {tab.children.map(
-              (child) =>
-                child.deleted === false && (
-                  <ButtonView
-                    style={globalStyles.button}
-                    key={child.id}
-                    value={
-                      child.pages_lang[
-                        utilities.findLanguageIndex(child.pages_lang, language)
-                      ].title
-                    }
-                    onPress={() => {
-                      navigation.push("SubScreen", child);
-                    }}
-                  />
-                )
-            )}
+            <ScrollView
+              contentContainerStyle={localStyles.sectionViewBottomScrollView}
+              style={{ flex: 1 }}
+            >
+              {tab.children.map(
+                (child) =>
+                  child.deleted === false && (
+                    <ButtonView
+                      style={globalStyles.button}
+                      key={child.id}
+                      value={
+                        child.pages_lang[
+                          utilities.findLanguageIndex(
+                            child.pages_lang,
+                            language
+                          )
+                        ].title
+                      }
+                      onPress={() => {
+                        navigation.push("SubScreen", child);
+                      }}
+                    />
+                  )
+              )}
+            </ScrollView>
           </View>
         </View>
       </ImageBackground>
@@ -205,7 +213,10 @@ const localStyles = StyleSheet.create({
   sectionViewTopWebView: { flex: 1, height: height / 4 },
   sectionViewBottom: {
     flex: 1,
-    marginTop: 20,
+    justifyContent: "flex-start",
+  },
+  sectionViewBottomScrollView: {
+    flexGrow: 1,
     justifyContent: "flex-start",
     alignItems: "center",
   },
