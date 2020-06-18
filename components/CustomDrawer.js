@@ -75,6 +75,9 @@ export default function CustomDrawer({ navigation }) {
         case 3:
           return "Home";
           break;
+        case 4:
+          return "Home";
+          break;
         default:
           return "Home";
       }
@@ -89,6 +92,9 @@ export default function CustomDrawer({ navigation }) {
         case 3:
           return "Refresh data";
           break;
+        case 4:
+          return "Daten aktualisieren";
+          break;
         default:
           return "Refresh data";
       }
@@ -102,6 +108,9 @@ export default function CustomDrawer({ navigation }) {
           break;
         case 3:
           return "Check for update";
+          break;
+        case 4:
+          return "Updates suchen";
           break;
         default:
           return "Check for update";
@@ -168,7 +177,7 @@ export default function CustomDrawer({ navigation }) {
           <ButtonView
             value="Deutsch"
             style={globalStyles.drawerLanguageButton}
-            onPress={() => alert("Translation coming soon")}
+            onPress={languageClick(4)}
           />
         </View>
       </View>
