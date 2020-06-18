@@ -1,4 +1,4 @@
-import { createStackNavigator } from "react-navigation-stack";
+/*import { createStackNavigator } from "react-navigation-stack";
 import React from "react";
 import Header from "../components/Header";
 import MidataSettings from "../screens/MidataSettings";
@@ -37,4 +37,4 @@ const SettingsStack = createStackNavigator(screens, {
   },
 });
 
-export default SettingsStack;
+export default SettingsStack;*/

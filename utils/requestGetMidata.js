@@ -1,4 +1,4 @@
-export default async function (url, authState, signInAsync) {
+/*export default async function (url, authState, signInAsync) {
   try {
     if (authState) {
       let response = await fetch(url, {
@@ -16,4 +16,4 @@ export default async function (url, authState, signInAsync) {
     console.error(e);
     await signInAsync();
   }
-}
+}*/

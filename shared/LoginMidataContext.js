@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+/*import React, { useState, useEffect, useContext } from "react";
 import { ToastAndroid } from "react-native";
 import * as AppAuth from "expo-app-auth";
 import * as SecureStore from "expo-secure-store";
@@ -118,4 +118,4 @@ export const Auth2Provider = ({ children }) => {
       {children}
     </Auth2Context.Provider>
   );
-};
+};*/

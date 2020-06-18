@@ -1,4 +1,4 @@
-export default async function (url, authState, signInAsync, body) {
+/*export default async function (url, authState, signInAsync, body) {
   try {
     console.log("entered requestpostMidata");
     let response = await fetch(url, {
@@ -15,4 +15,4 @@ export default async function (url, authState, signInAsync, body) {
     console.error(e);
     await signInAsync();
   }
-}
+}*/

@@ -4,7 +4,7 @@ import React from "react";
 
 // stacks
 import HomeStack from "./HomeStack";
-import SettingsStack from "./SettingsStack";
+//import SettingsStack from "./SettingsStack";
 
 //custom button component
 import CustomDrawer from "../components/CustomDrawer";
@@ -15,9 +15,9 @@ const RootDrawerNavigator = createDrawerNavigator(
     EResamont: {
       screen: HomeStack,
     },
-    MidataSettings: {
+    /*MidataSettings: {
       screen: SettingsStack,
-    },
+    },*/
   },
   {
     contentComponent: ({ navigation }) => {

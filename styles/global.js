@@ -67,13 +67,13 @@ export const globalStyles = StyleSheet.create({
     borderWidth: 0.7,
   },
   drawerTopMenu: { marginTop: 25 },
-  drawwerTopMenuText: {
+  drawerTopMenuText: {
     fontFamily: globalFont,
     fontSize: 16,
     textAlign: "left",
     color: themeColorPrimary,
   },
-  drawwerTopMenuTextBold: {
+  drawerTopMenuTextBold: {
     fontFamily: globalFont,
     fontSize: 16,
     textAlign: "left",

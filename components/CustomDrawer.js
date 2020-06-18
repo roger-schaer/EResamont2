@@ -123,26 +123,26 @@ export default function CustomDrawer({ navigation }) {
           </TouchableOpacity>
           <View style={globalStyles.drawerTopMenu}>
             <TouchableOpacity onPress={navigationClick("EResamont")}>
-              <Text style={globalStyles.drawwerTopMenuText}>
+              <Text style={globalStyles.drawerTopMenuText}>
                 {translate("Home", language)}
               </Text>
               <View style={globalStyles.topMenuDivider} />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={navigationClick("MidataSettings")}>
+            {/*<TouchableOpacity onPress={navigationClick("MidataSettings")}>
               <Text style={globalStyles.drawwerTopMenuText}>Midata</Text>
               <View style={globalStyles.topMenuDivider} />
-            </TouchableOpacity>
+            </TouchableOpacity>*/}
 
             <TouchableOpacity onPress={confirmClearDataClick}>
-              <Text style={globalStyles.drawwerTopMenuText}>
+              <Text style={globalStyles.drawerTopMenuText}>
                 {translate("Refresh data", language)}
               </Text>
               <View style={globalStyles.topMenuDivider} />
             </TouchableOpacity>
 
             <TouchableOpacity onPress={checkUpdate} testID={"cd-button-update"}>
-              <Text style={globalStyles.drawwerTopMenuText}>
+              <Text style={globalStyles.drawerTopMenuText}>
                 {translate("Check for update", language)}
               </Text>
               <View style={globalStyles.topMenuDivider} />

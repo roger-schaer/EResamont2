@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+/*import React, { useContext, useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -257,4 +257,4 @@ const localStyles = StyleSheet.create({
   scoresContainer: {
     padding: 10,
   },
-});
+});*/

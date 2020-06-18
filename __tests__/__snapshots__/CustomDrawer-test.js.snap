@@ -157,46 +157,6 @@ exports[`CustomDrawer renders correctly 1`] = `
               }
             }
           >
-            Midata
-          </Text>
-          <View
-            style={
-              Object {
-                "borderBottomColor": "black",
-                "borderBottomWidth": 1,
-                "marginBottom": 10,
-                "marginTop": 5,
-              }
-            }
-          />
-        </View>
-        <View
-          accessible={true}
-          focusable={true}
-          isTVSelectable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-        >
-          <Text
-            style={
-              Object {
-                "color": "#232323",
-                "fontFamily": "EuphemiaUCAS-Bold",
-                "fontSize": 16,
-                "textAlign": "left",
-              }
-            }
-          >
             Rafraîchir les données
           </Text>
           <View
