@@ -9,7 +9,7 @@
       "android",
       "web"
     ],
-    "version": "2.0.4",
+    "version": "2.0.5",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "ch.hevs.aislab.sapao.eresamont",
@@ -27,11 +27,11 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "ch.hevs.aislab.sapao.eResamont",
-      "buildNumber": "2.0.4"
+      "buildNumber": "2.0.5"
     },
     "android": {
       "package": "ch.hevs.aislab.sapao.eResamont",
-      "versionCode": 404,
+      "versionCode": 405,
       "splash": {
         "mdpi": "./assets/images/splash.png",
         "backgroundColor": "#ffffff",
