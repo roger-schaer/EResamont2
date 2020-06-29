@@ -7,7 +7,7 @@ import {
   Image,
   ActivityIndicator,
   ImageBackground,
-  ToastAndroid,
+  ToastAndroid
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import requestPage from "../utils/requestPage";
@@ -16,6 +16,7 @@ import { LoadingContext } from "../shared/LoadingContext";
 import utilities from "../utils/utilities";
 import storage from "../utils/storage";
 import ButtonView from "../components/ButtonView";
+import NetInfo from "@react-native-community/netinfo";
 
 import _ from "lodash";
 
@@ -23,13 +24,25 @@ export default function Home({ navigation }) {
   const [data, setData] = useState([]);
   const { language } = useContext(LanguageContext);
   const { loading, setLoading } = useContext(LoadingContext);
+  const [internetState, setInternetState] = useState(null);
 
   useEffect(() => {
-    if (loading === true) {
+    // Subscribe
+    const unsubscribe = NetInfo.addEventListener(state => {
+      if (internetState === null && state.isInternetReachable !== null)
+        setInternetState(state.isInternetReachable);
+    });
+
+    // Unsubscribe
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (loading === true && internetState !== null) {
       data.length > 1 && setData([]);
       getAllPages();
     }
-  }, [loading]);
+  }, [loading, internetState]);
 
   let getAllPages = async () => {
     // check local storage, if empty then fetch all online and save, if exists then fetch updates,
@@ -38,6 +51,7 @@ export default function Home({ navigation }) {
     let connectionInfo = await requestPage.checkConnection();
     let dataExists = await storage.checkStoragePages();
     let connectionOK = connectionInfo && connectionInfo.isInternetReachable;
+    console.log("Connection is ok", connectionOK);
     //No local data, no connection
     // TODO - Either remove or localize this (and check what happens on iOS with ToastAndroid)
     if (dataExists === false && connectionOK === false) {
@@ -87,9 +101,9 @@ export default function Home({ navigation }) {
     return dataToSave;
   };
 
-  let formatFetchedData = (data) => {
+  let formatFetchedData = data => {
     let dataArray = [];
-    dataArray = data.filter((item) => item.deleted === false);
+    dataArray = data.filter(item => item.deleted === false);
     dataArray = _.sortBy(dataArray, "position");
     return dataArray;
   };
@@ -109,7 +123,7 @@ export default function Home({ navigation }) {
         <View style={localStyles.buttonContainerMain}>
           <ScrollView contentContainerStyle={localStyles.scrollViewMain}>
             {data.length > 1 ? (
-              data.map((item) => (
+              data.map(item => (
                 <ButtonView
                   key={item.id}
                   value={
@@ -136,26 +150,26 @@ export default function Home({ navigation }) {
 const localStyles = StyleSheet.create({
   logo: {
     flex: 1,
-    marginBottom: 25,
+    marginBottom: 25
   },
   logoImage: {
     width: "100%",
     height: "100%",
-    resizeMode: "contain",
+    resizeMode: "contain"
   },
   buttonContainerMain: {
-    flex: 3,
+    flex: 3
   },
   scrollViewMain: {
     flexGrow: 1,
     justifyContent: "flex-start",
-    alignItems: "center",
+    alignItems: "center"
   },
   loaderViewMain: { flex: 1, alignItems: "center", justifyContent: "center" },
   containerTopButtons: {
     flexDirection: "row",
     borderColor: "red",
-    borderStyle: "solid",
+    borderStyle: "solid"
   },
   topButton: {
     borderRadius: 10,
@@ -163,6 +177,6 @@ const localStyles = StyleSheet.create({
     width: "50%",
     height: 30,
     alignItems: "center",
-    justifyContent: "center",
-  },
+    justifyContent: "center"
+  }
 });
