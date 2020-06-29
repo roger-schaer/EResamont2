@@ -9,9 +9,9 @@ export default class storage {
     console.log("=====================================");
     console.log("Checking for local data");
     let result = true;
-    for (let i = 1; i < 8; i++) {
+    for (let i = 1; i <= 8; i++) {
       let info = await FileSystem.getInfoAsync(filePath + i + ".txt");
-      if (info.exists === false && info.isDirectory === false) {
+      if (i !== 4 && info.exists === false && info.isDirectory === false) {
         result = false; // file doesnt exist
         console.log("Item at postion " + i + " does not exist");
         break;
@@ -26,13 +26,13 @@ export default class storage {
     console.log("=====================================");
     console.log("Saving data to local storage");
     try {
-      data.forEach((item) => {
-        FileSystem.writeAsStringAsync(
+      for (let item of data) {
+        await FileSystem.writeAsStringAsync(
           filePath + item.position + ".txt",
           JSON.stringify(item)
         );
         console.log("Local data item " + item.position + " saved");
-      });
+      }
     } catch (e) {
       console.error(e);
     }
@@ -43,9 +43,13 @@ export default class storage {
     console.log("Fetching local data");
     try {
       let localPages = [];
-      for (let i = 1; i < 8; i++) {
-        let section = await FileSystem.readAsStringAsync(filePath + i + ".txt");
-        localPages.push(JSON.parse(section));
+      for (let i = 1; i <= 8; i++) {
+        if (i !== 4) {
+          let section = await FileSystem.readAsStringAsync(
+            filePath + i + ".txt"
+          );
+          localPages.push(JSON.parse(section));
+        }
       }
       return await localPages;
     } catch (e) {
@@ -61,13 +65,13 @@ export default class storage {
       return false;
     } else {
       try {
-        data.forEach((item) => {
-          FileSystem.writeAsStringAsync(
+        for (let item of data) {
+          await FileSystem.writeAsStringAsync(
             filePath + item.position + ".txt",
             JSON.stringify(item)
           );
           console.log("Local data item " + item.position + " updated");
-        });
+        }
         console.log("Data updated");
         let timestamp = new Date().getTime();
         console.log("Updated timestamp: " + timestamp);
@@ -83,10 +87,12 @@ export default class storage {
     console.log("=====================================");
     console.log("Clearing local data");
     try {
-      for (let i = 1; i < 8; i++) {
-        FileSystem.deleteAsync(filePath + i + ".txt", {
-          idempotent: true,
-        });
+      for (let i = 1; i <= 8; i++) {
+        if (i !== 4) {
+          FileSystem.deleteAsync(filePath + i + ".txt", {
+            idempotent: true
+          });
+        }
       }
       console.log("Local data cleared");
     } catch (e) {
@@ -163,8 +169,8 @@ export default class storage {
     console.log("entered modifyQuizsentProp() with " + datesModified);
     let fileName = this.getFileName(idQuizz); //get file name to save according to quizz
     let currentScores = await this.getQuizScore(idQuizz);
-    currentScores.forEach((item) => {
-      datesModified.forEach((date) => {
+    currentScores.forEach(item => {
+      datesModified.forEach(date => {
         console.log(item.authored + " --- " + date);
         console.log("------------------");
         if (item.authored == date) {
@@ -180,7 +186,7 @@ export default class storage {
     console.log("Clearing local scores for" + fileName);
     try {
       FileSystem.deleteAsync(filePath + fileName, {
-        idempotent: true,
+        idempotent: true
       });
       console.log("Local scores cleared");
       ToastAndroid.show("Local scores empty", ToastAndroid.LONG);
