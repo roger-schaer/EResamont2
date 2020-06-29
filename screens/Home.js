@@ -29,8 +29,14 @@ export default function Home({ navigation }) {
   useEffect(() => {
     // Subscribe
     const unsubscribe = NetInfo.addEventListener(state => {
-      if (internetState === null && state.isInternetReachable !== null)
-        setInternetState(state.isInternetReachable);
+      console.log("NetInfo", state);
+      if (internetState === null) {
+        if (state.isConnected === true && state.isInternetReachable !== null) {
+          setInternetState(state.isInternetReachable);
+        } else if (!state.isConnected) {
+          setInternetState(false);
+        }
+      }
     });
 
     // Unsubscribe
