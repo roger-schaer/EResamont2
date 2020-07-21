@@ -14,8 +14,9 @@ import { LanguageContext } from "../shared/LanguageContext";
 import utilities from "../utils/utilities";
 import storage from "../utils/storage";
 import ButtonView from "../components/ButtonView";
-export default function SubScreen({ navigation }) {
-  const [tab] = useState(navigation.state.params);
+
+export default function SubScreen({ navigation, route }) {
+  const [tab] = useState(route.params);
   const { language } = useContext(LanguageContext);
 
   let checkScreenType = (tab) => {

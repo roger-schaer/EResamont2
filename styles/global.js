@@ -1,4 +1,5 @@
 import { StyleSheet, Platform } from "react-native";
+import * as Constants from "expo-constants";
 // const themeColorPrimary = "#3f51b5";
 export const themeColorPrimary = "#232323";
 export const themeColorSecondary = "#ffffff";
@@ -23,8 +24,7 @@ export const globalStyles = StyleSheet.create({
   headerLeftStyle: { marginLeft: 12 },
   headerRightStyle: { flexDirection: "row", marginRight: 12 },
   headerStyle: {
-    backgroundColor: themeColorSecondary,
-    height: 70,
+    //backgroundColor: themeColorSecondary,
   },
   headerText: {
     fontWeight: "bold",

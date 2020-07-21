@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import { Linking } from "expo";
+
 export default function EmergencyCalls() {
   let callNumber = (number) => {
     Linking.openURL("tel:" + number);

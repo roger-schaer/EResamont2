@@ -7,7 +7,8 @@ import {
   Image,
   ActivityIndicator,
   ImageBackground,
-  ToastAndroid
+  ToastAndroid,
+  StatusBar,
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import requestPage from "../utils/requestPage";
@@ -28,7 +29,7 @@ export default function Home({ navigation }) {
 
   useEffect(() => {
     // Subscribe
-    const unsubscribe = NetInfo.addEventListener(state => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
       console.log("NetInfo", state);
       if (internetState === null) {
         if (state.isConnected === true && state.isInternetReachable !== null) {
@@ -107,9 +108,9 @@ export default function Home({ navigation }) {
     return dataToSave;
   };
 
-  let formatFetchedData = data => {
+  let formatFetchedData = (data) => {
     let dataArray = [];
-    dataArray = data.filter(item => item.deleted === false);
+    dataArray = data.filter((item) => item.deleted === false);
     dataArray = _.sortBy(dataArray, "position");
     return dataArray;
   };
@@ -129,7 +130,7 @@ export default function Home({ navigation }) {
         <View style={localStyles.buttonContainerMain}>
           <ScrollView contentContainerStyle={localStyles.scrollViewMain}>
             {data.length > 1 ? (
-              data.map(item => (
+              data.map((item) => (
                 <ButtonView
                   key={item.id}
                   value={
@@ -156,26 +157,26 @@ export default function Home({ navigation }) {
 const localStyles = StyleSheet.create({
   logo: {
     flex: 1,
-    marginBottom: 25
+    marginBottom: 25,
   },
   logoImage: {
     width: "100%",
     height: "100%",
-    resizeMode: "contain"
+    resizeMode: "contain",
   },
   buttonContainerMain: {
-    flex: 3
+    flex: 3,
   },
   scrollViewMain: {
     flexGrow: 1,
     justifyContent: "flex-start",
-    alignItems: "center"
+    alignItems: "center",
   },
   loaderViewMain: { flex: 1, alignItems: "center", justifyContent: "center" },
   containerTopButtons: {
     flexDirection: "row",
     borderColor: "red",
-    borderStyle: "solid"
+    borderStyle: "solid",
   },
   topButton: {
     borderRadius: 10,
@@ -183,6 +184,6 @@ const localStyles = StyleSheet.create({
     width: "50%",
     height: 30,
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });

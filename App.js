@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { LanguageContext } from "./shared/LanguageContext";
 import { LoadingContext } from "./shared/LoadingContext";
-import Navigator from "./routes/Drawer";
 import storage from "./utils/storage";
+import RootDrawer from "./routes/Drawer";
+import { NavigationContainer } from "@react-navigation/native";
 //import { Auth2Provider } from "./shared/LoginMidataContext";
+
 export default function App() {
   const [language, setLanguage] = useState(1); //French default
   const [loading, setLoading] = useState(true);
@@ -21,7 +23,9 @@ export default function App() {
     //<Auth2Provider>
     <LoadingContext.Provider value={{ loading, setLoading }}>
       <LanguageContext.Provider value={{ language, setLanguage }}>
-        <Navigator />
+        <NavigationContainer>
+          <RootDrawer />
+        </NavigationContainer>
       </LanguageContext.Provider>
     </LoadingContext.Provider>
     //</Auth2Provider>

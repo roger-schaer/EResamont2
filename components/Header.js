@@ -4,7 +4,7 @@ import { globalStyles } from "../styles/global";
 import { LanguageContext } from "../shared/LanguageContext";
 import utilities from "../utils/utilities";
 
-export default function Header({ title, navigation }) {
+export default function Header({ title }) {
   const { language } = useContext(LanguageContext);
 
   // TODO - Make this hard-coded localization more elegant
@@ -61,5 +61,5 @@ export default function Header({ title, navigation }) {
 let width = Dimensions.get("window").width * 0.55;
 const border = { borderColor: "black", borderStyle: "solid", borderWidth: 0.7 };
 const localStyles = StyleSheet.create({
-  header: { height: "100%", width: width },
+  header: { width: width },
 });

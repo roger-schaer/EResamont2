@@ -4,7 +4,6 @@ exports[`Header renders correctly 1`] = `
 <View
   style={
     Object {
-      "height": "100%",
       "width": 412.50000000000006,
     }
   }
