@@ -32,8 +32,8 @@ function HomeStack() {
                 style={{ alignContent: "right" }}
               />
             ),
-            headerLeft: () => <HeaderLeft navigation={navigation} />,
-            headerRight: () => <HeaderRight navigation={navigation} />,
+            headerLeft: () => <HeaderLeft />,
+            headerRight: () => <HeaderRight />,
           };
         }}
       />

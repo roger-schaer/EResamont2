@@ -52,6 +52,7 @@ export default function Header({ title }) {
           ...globalStyles.headerText,
         }}
         numberOfLines={2}
+        adjustsFontSizeToFit={true}
       >
         {title && findTitle(title)}
       </Text>
@@ -61,5 +62,5 @@ export default function Header({ title }) {
 let width = Dimensions.get("window").width * 0.55;
 const border = { borderColor: "black", borderStyle: "solid", borderWidth: 0.7 };
 const localStyles = StyleSheet.create({
-  header: { width: width },
+  header: {},
 });

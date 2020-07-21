@@ -13,7 +13,7 @@ export default function HeaderRight() {
         name="call"
         size={25}
         onPress={() => navigation.push("EmergencyCalls")}
-        style={{ marginRight: 18 }}
+        style={{ marginRight: 10 }}
       />
       <MaterialIcons
         name="my-location"

@@ -125,13 +125,13 @@ export default function CustomDrawer({ navigation }) {
       <View style={globalStyles.drawerContainer}>
         <View style={globalStyles.drawerTop}>
           <TouchableOpacity
-            onPress={navigationClick("EResamont")}
+            onPress={navigationClick("Home")}
             testID={"cd-button-home"}
           >
             <Text style={globalStyles.drawerTitle}>E-Res@mont</Text>
           </TouchableOpacity>
           <View style={globalStyles.drawerTopMenu}>
-            <TouchableOpacity onPress={navigationClick("EResamont")}>
+            <TouchableOpacity onPress={navigationClick("Home")}>
               <Text style={globalStyles.drawerTopMenuText}>
                 {translate("Home", language)}
               </Text>
