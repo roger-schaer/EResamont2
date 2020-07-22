@@ -1,19 +1,36 @@
 import React from "react";
-import { AsyncStorage, ToastAndroid } from "react-native";
+import { ToastAndroid } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 import * as FileSystem from "expo-file-system";
 // const filePath = FileSystem.documentDirectory + "data.txt";
 const filePath = FileSystem.documentDirectory;
 import jsonFhirConverter from "./jsonFhirConverter";
+import { TOP_LEVEL_PAGES_KEY } from "./requestPage";
+
+const FILE_LIST_PATH = filePath + "index.json";
+
+function getFilePathForID(id) {
+  return `${filePath}page-${id}.txt`;
+}
+
 export default class storage {
   static async checkStoragePages() {
     console.log("=====================================");
     console.log("Checking for local data");
     let result = true;
-    for (let i = 1; i <= 8; i++) {
-      let info = await FileSystem.getInfoAsync(filePath + i + ".txt");
-      if (i !== 4 && info.exists === false && info.isDirectory === false) {
+    let tlp = await AsyncStorage.getItem(TOP_LEVEL_PAGES_KEY);
+
+    // Not stored the top-level pages yet, no local data
+    if (tlp === null) {
+      console.log("Top-level pages item doesn't exist");
+      return false;
+    }
+
+    for (let pageID of JSON.parse(tlp)) {
+      let info = await FileSystem.getInfoAsync(getFilePathForID(pageID));
+      if (info.exists === false && info.isDirectory === false) {
         result = false; // file doesnt exist
-        console.log("Item at postion " + i + " does not exist");
+        console.log("Item with ID " + pageID + " does not exist");
         break;
       }
     }
@@ -28,10 +45,10 @@ export default class storage {
     try {
       for (let item of data) {
         await FileSystem.writeAsStringAsync(
-          filePath + item.position + ".txt",
+          getFilePathForID(item.id),
           JSON.stringify(item)
         );
-        console.log("Local data item " + item.position + " saved");
+        console.log("Local data item with ID " + item.id + " saved");
       }
     } catch (e) {
       console.error(e);
@@ -43,15 +60,14 @@ export default class storage {
     console.log("Fetching local data");
     try {
       let localPages = [];
-      for (let i = 1; i <= 8; i++) {
-        if (i !== 4) {
-          let section = await FileSystem.readAsStringAsync(
-            filePath + i + ".txt"
-          );
-          localPages.push(JSON.parse(section));
-        }
+      let tlp = await AsyncStorage.getItem(TOP_LEVEL_PAGES_KEY);
+      for (let pageID of JSON.parse(tlp)) {
+        let section = await FileSystem.readAsStringAsync(
+          getFilePathForID(pageID)
+        );
+        localPages.push(JSON.parse(section));
       }
-      return await localPages;
+      return localPages;
     } catch (e) {
       console.error(e);
     }
@@ -67,10 +83,10 @@ export default class storage {
       try {
         for (let item of data) {
           await FileSystem.writeAsStringAsync(
-            filePath + item.position + ".txt",
+            getFilePathForID(item.id),
             JSON.stringify(item)
           );
-          console.log("Local data item " + item.position + " updated");
+          console.log("Local data item with ID " + item.id + " updated");
         }
         console.log("Data updated");
         let timestamp = new Date().getTime();
@@ -87,13 +103,13 @@ export default class storage {
     console.log("=====================================");
     console.log("Clearing local data");
     try {
-      for (let i = 1; i <= 8; i++) {
-        if (i !== 4) {
-          FileSystem.deleteAsync(filePath + i + ".txt", {
-            idempotent: true
-          });
-        }
+      let tlp = await AsyncStorage.getItem(TOP_LEVEL_PAGES_KEY);
+      for (let pageID of JSON.parse(tlp)) {
+        await FileSystem.deleteAsync(getFilePathForID(pageID), {
+          idempotent: true,
+        });
       }
+      await AsyncStorage.removeItem(TOP_LEVEL_PAGES_KEY);
       console.log("Local data cleared");
     } catch (e) {
       console.error(e);
@@ -169,8 +185,8 @@ export default class storage {
     console.log("entered modifyQuizsentProp() with " + datesModified);
     let fileName = this.getFileName(idQuizz); //get file name to save according to quizz
     let currentScores = await this.getQuizScore(idQuizz);
-    currentScores.forEach(item => {
-      datesModified.forEach(date => {
+    currentScores.forEach((item) => {
+      datesModified.forEach((date) => {
         console.log(item.authored + " --- " + date);
         console.log("------------------");
         if (item.authored == date) {
@@ -186,7 +202,7 @@ export default class storage {
     console.log("Clearing local scores for" + fileName);
     try {
       FileSystem.deleteAsync(filePath + fileName, {
-        idempotent: true
+        idempotent: true,
       });
       console.log("Local scores cleared");
       ToastAndroid.show("Local scores empty", ToastAndroid.LONG);

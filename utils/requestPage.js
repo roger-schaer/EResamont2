@@ -1,9 +1,12 @@
-import { AsyncStorage } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import ENV from "../env";
 
 const eresamontURL = ENV.ERESAMONT_BACKEND_URL;
+
+export const UPDATE_TIMESTAMP_KEY = "updateTimestamp";
+export const TOP_LEVEL_PAGES_KEY = "topLevelPages";
 
 export default class requestPage {
   static async checkConnection() {
@@ -11,6 +14,29 @@ export default class requestPage {
     let info = await NetInfo.fetch();
     if (info) {
       return info;
+    }
+  }
+  static async fetchPageTree() {
+    console.log("=====================================");
+    console.log("Fetching page tree");
+    await this.checkConnection();
+    try {
+      let response = await fetch(`${eresamontURL}/pages/tree`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      let timestamp = new Date().getTime();
+      console.log("Page tree fetched at UNIX: " + timestamp);
+      let responseJson = await response.json();
+      await AsyncStorage.setItem(
+        TOP_LEVEL_PAGES_KEY,
+        JSON.stringify(responseJson.map((page) => page.id))
+      );
+    } catch (e) {
+      console.log(e);
     }
   }
   static async fetchAllPages() {
@@ -26,8 +52,8 @@ export default class requestPage {
       });
       let timestamp = new Date().getTime();
       console.log("Online data fetched at UNIX: " + timestamp);
-      await AsyncStorage.setItem("updateTimestamp", timestamp.toString()); //Store timestamp
-      return await response.json();
+      await AsyncStorage.setItem(UPDATE_TIMESTAMP_KEY, timestamp.toString()); //Store timestamp
+      return response.json();
     } catch (e) {
       console.error(e);
     }
@@ -37,7 +63,7 @@ export default class requestPage {
     console.log("=====================================");
     console.log("Trying to fetch new online data since last timestamp");
     if (timestamp === null) {
-      timestamp = await AsyncStorage.getItem("updateTimestamp");
+      timestamp = await AsyncStorage.getItem(UPDATE_TIMESTAMP_KEY);
       console.log("Last timestamp: " + timestamp);
       timestamp = parseInt(timestamp);
     }
@@ -56,12 +82,13 @@ export default class requestPage {
 }
 
 // Page id cheatsheet
-// 86 Health Assessment works
+// 86 In Case of Emergency
+// 85 Medical Guide
+// 136 SOS MAM
 // 88 Mountain Meds Consultation works
 // 126 Questionnaires some button in Italian
-// 87 Toolbox some button in Italian
-// 89 About empty button bug
-// Medical Guide works
+// 129 News
+// 133 About
 
 //const convertUnixTime = unixTimestamp => {
 //   var date = new Date(unixTimestamp / 1000);

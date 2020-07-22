@@ -66,6 +66,7 @@ export default function Home({ navigation }) {
     } //No local data, connection ok => fetch online and save
     else if (dataExists === false && connectionOK === true) {
       ToastAndroid.show("Downloading..", ToastAndroid.SHORT);
+      await fetchPageTree();
       data = await fetchAndSaveData();
     } //Local data exists, connection ok => check online and update local data if possible, then load updated data
     else if (dataExists === true && connectionOK === true) {
@@ -101,7 +102,13 @@ export default function Home({ navigation }) {
     return data;
   };
 
+  let fetchPageTree = async () => {
+    const response = await requestPage.fetchPageTree();
+    return response;
+  };
+
   let fetchAndSaveData = async () => {
+    console.log("Going to fetch and save all pages");
     const response = await requestPage.fetchAllPages();
     let dataToSave = formatFetchedData(response);
     await storage.saveAllStoragePages(dataToSave);
