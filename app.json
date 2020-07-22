@@ -34,7 +34,7 @@
     },
     "android": {
       "package": "ch.hevs.aislab.sapao.eResamont",
-      "versionCode": 405,
+      "versionCode": 406,
       "splash": {
         "mdpi": "./assets/images/splash.png",
         "backgroundColor": "#ffffff",
