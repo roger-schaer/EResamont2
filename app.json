@@ -14,7 +14,7 @@
     "icon": "./assets/images/icon.png",
     "scheme": "ch.hevs.aislab.sapao.eresamont",
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 3000
     },
     "splash": {
       "image": "./assets/images/splash.png",
