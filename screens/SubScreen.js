@@ -1,4 +1,4 @@
-import React, { useState, useContext, useMemo } from "react";
+import React, { useState, useContext, useMemo, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -15,12 +15,30 @@ import utilities from "../utils/utilities";
 import storage from "../utils/storage";
 import ButtonView from "../components/ButtonView";
 import { Asset } from "expo-asset";
+import AssetUtils from "expo-asset-utils";
 
-function getAssetsMap(assets) {
-  return assets.reduce((acc, asset) => {
-    acc[`${asset.name}.${asset.type}`] = asset.localUri;
-    return acc;
-  }, {});
+async function getAssetsMap(assets) {
+  let map = {};
+
+  for (let asset of assets) {
+    //let base64Image = await AssetUtils.base64forImageUriAsync(asset.localUri);
+    // let assetInfo = await AssetUtils.fileInfoAsync(asset.localUri);
+    let resolvedAsset = await AssetUtils.resolveAsync(asset);
+    let uriAsset = await AssetUtils.uriAsync(asset);
+
+    // console.log("asset info", JSON.stringify(assetInfo));
+    console.log("resolved asset", JSON.stringify(resolvedAsset));
+    console.log("uri asset", JSON.stringify(uriAsset));
+
+    //const jpegPrefix = "data:image/jpeg;base64,";
+    let finalURL = asset.localUri;
+    if (finalURL.startsWith("asset://"))
+      finalURL = finalURL.replace("asset://", "file:///android_asset");
+
+    map[`${asset.name}.${asset.type}`] = finalURL;
+  }
+
+  return map;
 }
 
 function getComicsAssets() {
@@ -205,9 +223,16 @@ function getComicsAssets() {
 export default function SubScreen({ navigation, route }) {
   const [tab] = useState(route.params);
   const { language } = useContext(LanguageContext);
+  const [comicsAssetsMap, setComicsAssetsMap] = useState({});
 
-  //const comicsAssetsMap = useMemo(() => getAssetsMap(getComicsAssets()), []);
-  const comicsAssetsMap = getAssetsMap(getComicsAssets());
+  useEffect(() => {
+    async function loadImages() {
+      const comicsAssetsMap = await getAssetsMap(getComicsAssets());
+      setComicsAssetsMap(comicsAssetsMap);
+    }
+
+    if (tab.id == 92) loadImages();
+  }, [tab]);
 
   let checkScreenType = (tab) => {
     let result = 0;
@@ -276,6 +301,7 @@ export default function SubScreen({ navigation, route }) {
           let filename = originalSrc.substring(originalSrc.lastIndexOf('/') + 1);
           window.ReactNativeWebView.postMessage('filename ' + filename);
           let newSrc = assetsMap[filename];
+          //window.ReactNativeWebView.postMessage('new src ' + JSON.stringify(newSrc));
           imgTag.setAttribute('src', newSrc);
           imgTag.style.display = 'block';
         }
@@ -292,50 +318,52 @@ export default function SubScreen({ navigation, route }) {
   if (checkScreenType(tab) === 3) {
     //LEAF
     return (
-      <View style={localStyles.leafView}>
-        <WebView
-          textZoom={270}
-          onError={(event) => {
-            const { nativeEvent } = event;
-            console.warn("WebView error: ", nativeEvent);
-          }}
-          renderError={(errorName) => (
-            <View>
-              <Text>Aye! {errorName}</Text>
-            </View>
-          )}
-          source={{
-            html:
-              tab.pages_lang[
-                utilities.findLanguageIndex(tab.pages_lang, language)
-              ].text === ""
-                ? forIOS +
-                  tab.pages_lang[
-                    utilities.findLanguageIndex(tab.pages_lang, language)
-                  ].plaintext
-                : forIOS +
-                  tab.pages_lang[
-                    utilities.findLanguageIndex(tab.pages_lang, language)
-                  ].text,
-          }}
-          allowUniversalAccessFromFileURLs={true}
-          allowFileAccessFromFileURLs={true}
-          allowFileAccess={true}
-          originWhiteList={["*"]}
-          onMessage={(event) => {
-            console.log(event.nativeEvent.data);
-            if (tab.id == 95 || tab.id == 100)
-              storage.saveQuizScore(tab.id, event.nativeEvent.data);
-          }}
-          injectedJavaScript={generateJavaScript(tab.id)}
-          javaScriptEnabled={tab.id == 95 || tab.id == 100 || tab.id == 92}
-          style={{
-            flex: 1,
-            height: height,
-          }}
-          testID={"sub-webview"}
-        />
-      </View>
+      (tab.id !== 92 || Object.keys(comicsAssetsMap).length > 0) && (
+        <View style={localStyles.leafView}>
+          <WebView
+            textZoom={270}
+            onError={(event) => {
+              const { nativeEvent } = event;
+              console.warn("WebView error: ", nativeEvent);
+            }}
+            renderError={(errorName) => (
+              <View>
+                <Text>Aye! {errorName}</Text>
+              </View>
+            )}
+            source={{
+              html:
+                tab.pages_lang[
+                  utilities.findLanguageIndex(tab.pages_lang, language)
+                ].text === ""
+                  ? forIOS +
+                    tab.pages_lang[
+                      utilities.findLanguageIndex(tab.pages_lang, language)
+                    ].plaintext
+                  : forIOS +
+                    tab.pages_lang[
+                      utilities.findLanguageIndex(tab.pages_lang, language)
+                    ].text,
+            }}
+            allowUniversalAccessFromFileURLs={true}
+            allowFileAccessFromFileURLs={true}
+            allowFileAccess={true}
+            originWhiteList={["*"]}
+            onMessage={(event) => {
+              console.log(event.nativeEvent.data);
+              if (tab.id == 95 || tab.id == 100)
+                storage.saveQuizScore(tab.id, event.nativeEvent.data);
+            }}
+            injectedJavaScript={generateJavaScript(tab.id)}
+            javaScriptEnabled={tab.id == 95 || tab.id == 100 || tab.id == 92}
+            style={{
+              flex: 1,
+              height: height,
+            }}
+            testID={"sub-webview"}
+          />
+        </View>
+      )
     );
   } else if (checkScreenType(tab) === 2) {
     // SUBSCREEN WITH WEB VIEW
