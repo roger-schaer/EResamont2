@@ -15,23 +15,12 @@ import utilities from "../utils/utilities";
 import storage from "../utils/storage";
 import ButtonView from "../components/ButtonView";
 import { Asset } from "expo-asset";
-import AssetUtils from "expo-asset-utils";
 
 async function getAssetsMap(assets) {
   let map = {};
 
   for (let asset of assets) {
-    //let base64Image = await AssetUtils.base64forImageUriAsync(asset.localUri);
-    // let assetInfo = await AssetUtils.fileInfoAsync(asset.localUri);
-    let resolvedAsset = await AssetUtils.resolveAsync(asset);
-    let uriAsset = await AssetUtils.uriAsync(asset);
-
-    // console.log("asset info", JSON.stringify(assetInfo));
-    console.log("resolved asset", JSON.stringify(resolvedAsset));
-    console.log("uri asset", JSON.stringify(uriAsset));
-
-    //const jpegPrefix = "data:image/jpeg;base64,";
-    let finalURL = asset.localUri;
+    let finalURL = Platform.OS === "android" ? asset.localUri : asset.uri;
     if (finalURL.startsWith("asset://"))
       finalURL = finalURL.replace("asset://", "file:///android_asset");
 
@@ -301,7 +290,7 @@ export default function SubScreen({ navigation, route }) {
           let filename = originalSrc.substring(originalSrc.lastIndexOf('/') + 1);
           window.ReactNativeWebView.postMessage('filename ' + filename);
           let newSrc = assetsMap[filename];
-          //window.ReactNativeWebView.postMessage('new src ' + JSON.stringify(newSrc));
+          window.ReactNativeWebView.postMessage('new src ' + JSON.stringify(newSrc));
           imgTag.setAttribute('src', newSrc);
           imgTag.style.display = 'block';
         }
@@ -350,7 +339,7 @@ export default function SubScreen({ navigation, route }) {
             allowFileAccess={true}
             originWhiteList={["*"]}
             onMessage={(event) => {
-              console.log(event.nativeEvent.data);
+              console.warn(event.nativeEvent.data);
               if (tab.id == 95 || tab.id == 100)
                 storage.saveQuizScore(tab.id, event.nativeEvent.data);
             }}
