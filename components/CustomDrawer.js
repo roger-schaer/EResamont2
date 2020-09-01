@@ -13,6 +13,7 @@ import ButtonView from "./ButtonView";
 import storage from "../utils/storage";
 import requestPage from "../utils/requestPage";
 import { Alert, ToastAndroid } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function CustomDrawer({ navigation }) {
   const { language, setLanguage } = useContext(LanguageContext);
@@ -115,6 +116,23 @@ export default function CustomDrawer({ navigation }) {
         default:
           return "Check for update";
       }
+    } else if (name === "ASGM Login") {
+      switch (language) {
+        case 1:
+          return "Login ASGM";
+          break;
+        case 2:
+          return "Accesso ASGM";
+          break;
+        case 3:
+          return "SBV Login";
+          break;
+        case 4:
+          return "Login SBV";
+          break;
+        default:
+          return "Login ASGM";
+      }
     }
   };
   return (
@@ -153,6 +171,13 @@ export default function CustomDrawer({ navigation }) {
             <TouchableOpacity onPress={checkUpdate} testID={"cd-button-update"}>
               <Text style={globalStyles.drawerTopMenuText}>
                 {translate("Check for update", language)}
+              </Text>
+              <View style={globalStyles.topMenuDivider} />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={checkUpdate} testID={"cd-button-update"}>
+              <Text style={globalStyles.drawerTopMenuText}>
+                <FontAwesome5 name="lock" /> {translate("ASGM Login", language)}
               </Text>
               <View style={globalStyles.topMenuDivider} />
             </TouchableOpacity>

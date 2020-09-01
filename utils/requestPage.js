@@ -7,6 +7,7 @@ const eresamontURL = ENV.ERESAMONT_BACKEND_URL;
 
 export const UPDATE_TIMESTAMP_KEY = "updateTimestamp";
 export const TOP_LEVEL_PAGES_KEY = "topLevelPages";
+export const HIDDEN_PAGE_IDS = [138];
 
 export default class requestPage {
   static async checkConnection() {
@@ -31,9 +32,13 @@ export default class requestPage {
       let timestamp = new Date().getTime();
       console.log("Page tree fetched at UNIX: " + timestamp);
       let responseJson = await response.json();
+      let topLevelPageIDs = responseJson.map((page) => page.id);
+      let filteredTopLevelPageIDs = topLevelPageIDs.filter(
+        (id) => !HIDDEN_PAGE_IDS.includes(id)
+      );
       await AsyncStorage.setItem(
         TOP_LEVEL_PAGES_KEY,
-        JSON.stringify(responseJson.map((page) => page.id))
+        JSON.stringify(filteredTopLevelPageIDs)
       );
     } catch (e) {
       console.log(e);
