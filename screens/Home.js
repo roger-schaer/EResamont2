@@ -89,7 +89,7 @@ export default function Home({ navigation }) {
       data = await storage.getAllStoragePages();
       ToastAndroid.show("Local data up to date", ToastAndroid.SHORT);
     } else {
-      let res = await storage.updateStoragePages(data);
+      let res = await storage.updateStoragePages(dataNew);
       if (res === true) {
         data = await storage.getAllStoragePages();
         console.log("New data saved");
