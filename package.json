@@ -28,6 +28,7 @@
     "expo": "^38.0.0",
     "expo-app-auth": "~9.1.1",
     "expo-asset": "~8.1.7",
+    "expo-asset-utils": "^1.2.0",
     "expo-constants": "~9.1.1",
     "expo-file-system": "~9.0.1",
     "expo-font": "~8.2.1",
