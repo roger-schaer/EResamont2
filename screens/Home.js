@@ -10,7 +10,7 @@ import {
   ToastAndroid,
   StatusBar,
 } from "react-native";
-import { globalStyles } from "../styles/global";
+import { globalStyles, themeColorPrimary } from "../styles/global";
 import requestPage from "../utils/requestPage";
 import { LanguageContext } from "../shared/LanguageContext";
 import { LoadingContext } from "../shared/LoadingContext";
@@ -18,13 +18,16 @@ import utilities from "../utils/utilities";
 import storage from "../utils/storage";
 import ButtonView from "../components/ButtonView";
 import NetInfo from "@react-native-community/netinfo";
+import { HIDDEN_PAGE_IDS } from "../utils/requestPage";
 
 import _ from "lodash";
+import { ASGMContext } from "../shared/ASGMContext";
 
 export default function Home({ navigation }) {
   const [data, setData] = useState([]);
   const { language } = useContext(LanguageContext);
   const { loading, setLoading } = useContext(LoadingContext);
+  const { asgmStatus } = useContext(ASGMContext);
   const [internetState, setInternetState] = useState(null);
 
   useEffect(() => {
@@ -71,6 +74,7 @@ export default function Home({ navigation }) {
     } //Local data exists, connection ok => check online and update local data if possible, then load updated data
     else if (dataExists === true && connectionOK === true) {
       ToastAndroid.show("Checking for update..", ToastAndroid.SHORT);
+      await fetchPageTree();
       data = await fetchLocalStorageWithUpdateCheck();
     } //Local data exists, no connection => just load the local data
     else if (dataExists === true && connectionOK === false) {
@@ -137,18 +141,29 @@ export default function Home({ navigation }) {
         <View style={localStyles.buttonContainerMain}>
           <ScrollView contentContainerStyle={localStyles.scrollViewMain}>
             {data.length > 1 ? (
-              data.map((item) => (
-                <ButtonView
-                  key={item.id}
-                  value={
-                    item.pages_lang[
-                      utilities.findLanguageIndex(item.pages_lang, language)
-                    ].title
-                  }
-                  onPress={() => navigation.push("SubScreen", item)}
-                  style={globalStyles.button}
-                />
-              ))
+              data.map((item) => {
+                if (!HIDDEN_PAGE_IDS.includes(item.id) || asgmStatus) {
+                  return (
+                    <ButtonView
+                      key={item.id}
+                      value={
+                        item.pages_lang[
+                          utilities.findLanguageIndex(item.pages_lang, language)
+                        ].title
+                      }
+                      onPress={() => navigation.push("SubScreen", item)}
+                      style={{
+                        ...globalStyles.button,
+                        backgroundColor: HIDDEN_PAGE_IDS.includes(item.id)
+                          ? "#3c86a8"
+                          : themeColorPrimary,
+                      }}
+                    />
+                  );
+                } else {
+                  return null;
+                }
+              })
             ) : (
               <View style={localStyles.loaderViewMain}>
                 <ActivityIndicator size="large" color="black" />

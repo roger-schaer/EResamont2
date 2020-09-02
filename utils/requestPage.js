@@ -33,12 +33,12 @@ export default class requestPage {
       console.log("Page tree fetched at UNIX: " + timestamp);
       let responseJson = await response.json();
       let topLevelPageIDs = responseJson.map((page) => page.id);
-      let filteredTopLevelPageIDs = topLevelPageIDs.filter(
-        (id) => !HIDDEN_PAGE_IDS.includes(id)
-      );
+      // let filteredTopLevelPageIDs = topLevelPageIDs.filter(
+      //   (id) => !HIDDEN_PAGE_IDS.includes(id)
+      // );
       await AsyncStorage.setItem(
         TOP_LEVEL_PAGES_KEY,
-        JSON.stringify(filteredTopLevelPageIDs)
+        JSON.stringify(topLevelPageIDs)
       );
     } catch (e) {
       console.log(e);

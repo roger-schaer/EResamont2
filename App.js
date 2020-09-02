@@ -5,11 +5,26 @@ import storage from "./utils/storage";
 import RootDrawer from "./routes/Drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { Asset } from "expo-asset";
+import { ASGMContext } from "./shared/ASGMContext";
 //import { Auth2Provider } from "./shared/LoginMidataContext";
 
 export default function App() {
   const [language, setLanguage] = useState(1); //French default
   const [loading, setLoading] = useState(true);
+  const [asgmStatus, setAsgmStatus] = useState(null);
+
+  useEffect(() => {
+    async function getASGMStatus() {
+      let status = await storage.getASGMStatus();
+      if (status !== true) {
+        setAsgmStatus(false);
+      } else {
+        setAsgmStatus(true);
+      }
+    }
+
+    getASGMStatus();
+  }, []);
 
   useEffect(() => {
     prefetchImages();
@@ -25,17 +40,24 @@ export default function App() {
     fetchLanguage();
   }, []);
 
-  return (
-    //<Auth2Provider>
-    <LoadingContext.Provider value={{ loading, setLoading }}>
-      <LanguageContext.Provider value={{ language, setLanguage }}>
-        <NavigationContainer>
-          <RootDrawer />
-        </NavigationContainer>
-      </LanguageContext.Provider>
-    </LoadingContext.Provider>
-    //</Auth2Provider>
-  );
+  if (asgmStatus !== null) {
+    return (
+      //<Auth2Provider>
+      <LoadingContext.Provider value={{ loading, setLoading }}>
+        <LanguageContext.Provider value={{ language, setLanguage }}>
+          <ASGMContext.Provider value={{ asgmStatus, setAsgmStatus }}>
+            <NavigationContainer>
+              <RootDrawer />
+            </NavigationContainer>
+          </ASGMContext.Provider>
+        </LanguageContext.Provider>
+      </LoadingContext.Provider>
+
+      //</Auth2Provider>
+    );
+  } else {
+    return null;
+  }
 }
 
 async function prefetchImages() {

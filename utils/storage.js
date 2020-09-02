@@ -1,6 +1,7 @@
 import React from "react";
 import { ToastAndroid } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
+import * as SecureStore from "expo-secure-store";
 import * as FileSystem from "expo-file-system";
 // const filePath = FileSystem.documentDirectory + "data.txt";
 const filePath = FileSystem.documentDirectory;
@@ -8,6 +9,7 @@ import jsonFhirConverter from "./jsonFhirConverter";
 import { TOP_LEVEL_PAGES_KEY } from "./requestPage";
 
 const FILE_LIST_PATH = filePath + "index.json";
+const ASGM_STORAGE_KEY = "asgm";
 
 function getFilePathForID(id) {
   return `${filePath}page-${id}.txt`;
@@ -241,6 +243,23 @@ export default class storage {
     try {
       await AsyncStorage.setItem("language", language.toString());
       console.log("Language saved!");
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  static async getASGMStatus() {
+    try {
+      let value = await SecureStore.getItemAsync(ASGM_STORAGE_KEY);
+      return JSON.parse(value);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  static async setASGMStatus(status) {
+    try {
+      await SecureStore.setItemAsync(ASGM_STORAGE_KEY, JSON.stringify(status));
     } catch (e) {
       console.error(e);
     }

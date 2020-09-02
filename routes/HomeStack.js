@@ -8,6 +8,7 @@ import { globalStyles } from "../styles/global";
 import EmergencyCalls from "../screens/EmergencyCalls";
 import Geolocation from "../screens/Geolocation";
 import { createStackNavigator } from "@react-navigation/stack";
+import ASGMLogin from "../screens/ASGMLogin";
 
 // home stack navigator screens
 const HomeStackNavigator = createStackNavigator();
@@ -66,6 +67,15 @@ function HomeStack() {
         options={({ navigation }) => {
           return {
             headerTitle: () => <Header title="GPS" navigation={navigation} />,
+          };
+        }}
+      />
+      <HomeStackNavigator.Screen
+        name="ASGM"
+        component={ASGMLogin}
+        options={({ navigation }) => {
+          return {
+            headerTitle: () => <Header title="ASGM" navigation={navigation} />,
           };
         }}
       />

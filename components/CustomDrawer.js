@@ -14,10 +14,12 @@ import storage from "../utils/storage";
 import requestPage from "../utils/requestPage";
 import { Alert, ToastAndroid } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { ASGMContext } from "../shared/ASGMContext";
 
 export default function CustomDrawer({ navigation }) {
   const { language, setLanguage } = useContext(LanguageContext);
   const { setLoading } = useContext(LoadingContext);
+  const { asgmStatus, setAsgmStatus } = useContext(ASGMContext);
 
   const navigationClick = (page) => () => {
     navigation.toggleDrawer();
@@ -175,12 +177,18 @@ export default function CustomDrawer({ navigation }) {
               <View style={globalStyles.topMenuDivider} />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={checkUpdate} testID={"cd-button-update"}>
-              <Text style={globalStyles.drawerTopMenuText}>
-                <FontAwesome5 name="lock" /> {translate("ASGM Login", language)}
-              </Text>
-              <View style={globalStyles.topMenuDivider} />
-            </TouchableOpacity>
+            {!asgmStatus && (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("ASGM")}
+                testID={"cd-button-update"}
+              >
+                <Text style={globalStyles.drawerTopMenuText}>
+                  <FontAwesome5 name="lock" />{" "}
+                  {translate("ASGM Login", language)}
+                </Text>
+                <View style={globalStyles.topMenuDivider} />
+              </TouchableOpacity>
+            )}
           </View>
         </View>
         <View style={globalStyles.drawerButtons}>

@@ -23,6 +23,9 @@ export default function Header({ title }) {
         case 3:
           return "Home";
           break;
+        case 4:
+          return "Home";
+          break;
         default:
           return "Home";
       }
@@ -37,8 +40,28 @@ export default function Header({ title }) {
         case 3:
           return "Emergency calls";
           break;
+        case 4:
+          return "Notanruf";
+          break;
         default:
           return "Emergency calls";
+      }
+    } else if (title == "ASGM") {
+      switch (language) {
+        case 1:
+          return "ASGM";
+          break;
+        case 2:
+          return "ASGM";
+          break;
+        case 3:
+          return "SBV";
+          break;
+        case 4:
+          return "SBV";
+          break;
+        default:
+          return "ASGM";
       }
     } else {
       return title[utilities.findLanguageIndex(title, language)].title;
