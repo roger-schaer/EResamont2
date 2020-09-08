@@ -1,5 +1,5 @@
 import React from "react";
-import { ToastAndroid } from "react-native";
+import { Platform, ToastAndroid } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import * as SecureStore from "expo-secure-store";
 import * as FileSystem from "expo-file-system";
@@ -118,6 +118,10 @@ export default class storage {
     }
   }
 
+  static async removeASGMStatus() {
+    await SecureStore.deleteItemAsync(ASGM_STORAGE_KEY);
+  }
+
   static async getQuizScore(idQuizz) {
     let fileName = this.getFileName(idQuizz);
     console.log("=====================================");
@@ -175,7 +179,8 @@ export default class storage {
           JSON.stringify(currentScoresObject)
         );
         console.log("Score saved!");
-        ToastAndroid.show("Score saved!", ToastAndroid.SHORT);
+        if (Platform.OS === "android")
+          ToastAndroid.show("Score saved!", ToastAndroid.SHORT);
       } catch (e) {
         console.log("in SaveQuizScore:");
         console.error(e);
@@ -207,7 +212,8 @@ export default class storage {
         idempotent: true,
       });
       console.log("Local scores cleared");
-      ToastAndroid.show("Local scores empty", ToastAndroid.LONG);
+      if (Platform.OS === "android")
+        ToastAndroid.show("Local scores empty", ToastAndroid.LONG);
     } catch (e) {
       console.error(e);
     }
@@ -254,6 +260,7 @@ export default class storage {
       return JSON.parse(value);
     } catch (e) {
       console.error(e);
+      return false;
     }
   }
 

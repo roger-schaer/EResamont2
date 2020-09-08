@@ -9,6 +9,7 @@ import {
   ImageBackground,
   ToastAndroid,
   StatusBar,
+  Platform,
 } from "react-native";
 import { globalStyles, themeColorPrimary } from "../styles/global";
 import requestPage from "../utils/requestPage";
@@ -18,6 +19,7 @@ import utilities from "../utils/utilities";
 import storage from "../utils/storage";
 import ButtonView from "../components/ButtonView";
 import NetInfo from "@react-native-community/netinfo";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { HIDDEN_PAGE_IDS } from "../utils/requestPage";
 
 import _ from "lodash";
@@ -44,15 +46,19 @@ export default function Home({ navigation }) {
     });
 
     // Unsubscribe
-    return () => unsubscribe();
+    return () => {
+      console.log("Unsubscribing from NetInfo updates");
+      unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
-    if (loading === true && internetState !== null) {
-      data.length > 1 && setData([]);
-      getAllPages();
+    async function loadPagesOnInternetChange() {
+      await getAllPages();
     }
-  }, [loading, internetState]);
+
+    loadPagesOnInternetChange();
+  }, [internetState]);
 
   let getAllPages = async () => {
     // check local storage, if empty then fetch all online and save, if exists then fetch updates,
@@ -65,20 +71,27 @@ export default function Home({ navigation }) {
     //No local data, no connection
     // TODO - Either remove or localize this (and check what happens on iOS with ToastAndroid)
     if (dataExists === false && connectionOK === false) {
-      ToastAndroid.show("No local data, no connection", ToastAndroid.SHORT);
+      if (Platform.OS === "android")
+        ToastAndroid.show("No local data, no connection", ToastAndroid.SHORT);
     } //No local data, connection ok => fetch online and save
     else if (dataExists === false && connectionOK === true) {
-      ToastAndroid.show("Downloading..", ToastAndroid.SHORT);
+      if (Platform.OS === "android")
+        ToastAndroid.show("Downloading..", ToastAndroid.SHORT);
       await fetchPageTree();
       data = await fetchAndSaveData();
     } //Local data exists, connection ok => check online and update local data if possible, then load updated data
     else if (dataExists === true && connectionOK === true) {
-      ToastAndroid.show("Checking for update..", ToastAndroid.SHORT);
+      if (Platform.OS === "android")
+        ToastAndroid.show("Checking for update..", ToastAndroid.SHORT);
       await fetchPageTree();
       data = await fetchLocalStorageWithUpdateCheck();
     } //Local data exists, no connection => just load the local data
     else if (dataExists === true && connectionOK === false) {
-      ToastAndroid.show("Local data exists, no connection", ToastAndroid.SHORT);
+      if (Platform.OS === "android")
+        ToastAndroid.show(
+          "Local data exists, no connection",
+          ToastAndroid.SHORT
+        );
       data = await storage.getAllStoragePages();
     }
     setData(data);
@@ -91,16 +104,18 @@ export default function Home({ navigation }) {
     if (dataNew.length === 0) {
       console.log("No new data");
       data = await storage.getAllStoragePages();
-      ToastAndroid.show("Local data up to date", ToastAndroid.SHORT);
+      if (Platform.OS === "android")
+        ToastAndroid.show("Local data up to date", ToastAndroid.SHORT);
     } else {
       let res = await storage.updateStoragePages(dataNew);
       if (res === true) {
         data = await storage.getAllStoragePages();
         console.log("New data saved");
-        ToastAndroid.show(
-          "New data fetched since last time",
-          ToastAndroid.SHORT
-        );
+        if (Platform.OS === "android")
+          ToastAndroid.show(
+            "New data fetched since last time",
+            ToastAndroid.SHORT
+          );
       }
     }
     return data;
@@ -124,6 +139,32 @@ export default function Home({ navigation }) {
     dataArray = data.filter((item) => item.deleted === false);
     dataArray = _.sortBy(dataArray, "position");
     return dataArray;
+  };
+
+  // TODO - Make internationalization more elegant
+  const translate = function (text) {
+    switch (text) {
+      case "no-connection":
+        switch (language) {
+          case 1:
+            return "Pas de connexion Internet! Veuillez vous connecter à Internet une première fois afin de télécharger tous les contenus.";
+            break;
+          case 2:
+            return "Nessuna connessione! Si prega di attivare Internet la prima volta per scaricare tutti i contenuti.";
+            break;
+          case 3:
+            return "No connection! Please enable Internet the first time to download all the content.";
+            break;
+          case 4:
+            return "Keine Verbinding! Bitte verbinden Sie sich einmal mit dem Internet, um alle Inhalte herunterzuladen.";
+            break;
+          default:
+            return "No connection! Please enable Internet the first time to download all the content.";
+        }
+        break;
+      default:
+        return "";
+    }
   };
 
   return (
@@ -164,6 +205,19 @@ export default function Home({ navigation }) {
                   return null;
                 }
               })
+            ) : loading === false && data.length === 0 ? (
+              <View
+                style={{
+                  ...localStyles.loaderViewMain,
+                  width: "100%",
+                  backgroundColor: "rgba(255,255,255,0.9)",
+                }}
+              >
+                <FontAwesome5 name={"exclamation-triangle"} size={48} />
+                <Text style={localStyles.error}>
+                  {translate("no-connection")}
+                </Text>
+              </View>
             ) : (
               <View style={localStyles.loaderViewMain}>
                 <ActivityIndicator size="large" color="black" />
@@ -207,5 +261,11 @@ const localStyles = StyleSheet.create({
     height: 30,
     alignItems: "center",
     justifyContent: "center",
+  },
+  error: {
+    fontSize: 28,
+    textAlign: "center",
+    width: "100%",
+    padding: 10,
   },
 });

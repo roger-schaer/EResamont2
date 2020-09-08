@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   StyleSheet,
+  Platform,
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import { LanguageContext } from "../shared/LanguageContext";
@@ -35,18 +36,23 @@ export default function CustomDrawer({ navigation }) {
     let data = await requestPage.fetchUpdatedContent(null);
     console.log(data.length);
     if (data.length === 0) {
-      ToastAndroid.show("Data already up to date", ToastAndroid.SHORT);
+      if (Platform.OS === "android")
+        ToastAndroid.show("Data already up to date", ToastAndroid.SHORT);
     } else {
       let res = await storage.updateStoragePages(data);
-      res === true && ToastAndroid.show("Data updated", ToastAndroid.SHORT);
+      if (Platform.OS === "android")
+        res === true && ToastAndroid.show("Data updated", ToastAndroid.SHORT);
       setLoading(true);
     }
   };
   const clearData = async () => {
+    await storage.removeASGMStatus();
+    setAsgmStatus(false);
     await storage.removeAllStoragePages();
     let info = await storage.checkStoragePages();
     if (info === false) {
-      ToastAndroid.show("Local data cleared", ToastAndroid.SHORT);
+      if (Platform.OS === "android")
+        ToastAndroid.show("Local data cleared", ToastAndroid.SHORT);
       setLoading(true);
     }
   };

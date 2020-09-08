@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, ToastAndroid } from "react-native";
+import { View, Text, StyleSheet, ToastAndroid, Platform } from "react-native";
 import { globalStyles } from "../styles/global";
 import { WebView } from "react-native-webview";
 
@@ -18,7 +18,8 @@ export default function Geolocation({ navigation }) {
   let getGeolocationAsync = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== "granted") {
-      ToastAndroid.show("Permission denied", ToastAndroid.SHORT);
+      if (Platform.OS === "android")
+        ToastAndroid.show("Permission denied", ToastAndroid.SHORT);
     } else {
       setGeoPermission(true);
       let location = await Location.getCurrentPositionAsync({});
