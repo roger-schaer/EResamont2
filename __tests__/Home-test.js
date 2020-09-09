@@ -2,7 +2,7 @@ import * as React from "react";
 import renderer from "react-test-renderer";
 import { render, fireEvent, cleanup } from "react-native-testing-library";
 import { LanguageContext } from "../shared/LanguageContext";
-import { LoadingContext } from "../shared/LoadingContext";
+import { DataContext } from "../shared/DataContext";
 import Home from "../screens/Home";
 import storage from "../utils/storage";
 import requestPage from "../utils/requestPage";
@@ -24,12 +24,12 @@ requestPage.fetchUpdatedContent = jest.fn(() => {
 });
 
 let language;
-let loading;
+let data;
 
 describe("Home", () => {
   beforeEach(() => {
     language = 1; //French
-    loading = true;
+    data = null;
     //reset mocks and counters
     jest.clearAllMocks();
   });
@@ -40,11 +40,11 @@ describe("Home", () => {
     await act(async () => {
       component = renderer
         .create(
-          <LoadingContext.Provider value={{ loading }}>
+          <DataContext.Provider value={{ data }}>
             <LanguageContext.Provider value={{ language }}>
               <Home />
             </LanguageContext.Provider>
-          </LoadingContext.Provider>
+          </DataContext.Provider>
         )
         .toJSON();
     });
@@ -57,11 +57,11 @@ describe("Home", () => {
     await act(async () => {
       component = renderer
         .create(
-          <LoadingContext.Provider value={{ loading }}>
+          <DataContext.Provider value={{ data }}>
             <LanguageContext.Provider value={{ language }}>
               <Home />
             </LanguageContext.Provider>
-          </LoadingContext.Provider>
+          </DataContext.Provider>
         )
         .toJSON();
     });
@@ -77,11 +77,11 @@ describe("Home", () => {
 
       await act(async () => {
         renderer.create(
-          <LoadingContext.Provider value={{ loading }}>
+          <DataContext.Provider value={{ data }}>
             <LanguageContext.Provider value={{ language }}>
               <Home />
             </LanguageContext.Provider>
-          </LoadingContext.Provider>
+          </DataContext.Provider>
         );
       });
 
@@ -98,11 +98,11 @@ describe("Home", () => {
 
       await act(async () => {
         renderer.create(
-          <LoadingContext.Provider value={{ loading }}>
+          <DataContext.Provider value={{ data }}>
             <LanguageContext.Provider value={{ language }}>
               <Home />
             </LanguageContext.Provider>
-          </LoadingContext.Provider>
+          </DataContext.Provider>
         );
       });
 
@@ -119,11 +119,11 @@ describe("Home", () => {
 
       await act(async () => {
         renderer.create(
-          <LoadingContext.Provider value={{ loading }}>
+          <DataContext.Provider value={{ data }}>
             <LanguageContext.Provider value={{ language }}>
               <Home />
             </LanguageContext.Provider>
-          </LoadingContext.Provider>
+          </DataContext.Provider>
         );
       });
 
@@ -140,11 +140,11 @@ describe("Home", () => {
 
       await act(async () => {
         renderer.create(
-          <LoadingContext.Provider value={{ loading }}>
+          <DataContext.Provider value={{ data }}>
             <LanguageContext.Provider value={{ language }}>
               <Home />
             </LanguageContext.Provider>
-          </LoadingContext.Provider>
+          </DataContext.Provider>
         );
       });
 
@@ -164,11 +164,11 @@ describe("Home", () => {
 
       await act(async () => {
         renderer.create(
-          <LoadingContext.Provider value={{ loading }}>
+          <DataContext.Provider value={{ data }}>
             <LanguageContext.Provider value={{ language }}>
               <Home />
             </LanguageContext.Provider>
-          </LoadingContext.Provider>
+          </DataContext.Provider>
         );
       });
 
@@ -193,11 +193,11 @@ describe("Home", () => {
 
       await act(async () => {
         renderer.create(
-          <LoadingContext.Provider value={{ loading }}>
+          <DataContext.Provider value={{ data }}>
             <LanguageContext.Provider value={{ language }}>
               <Home />
             </LanguageContext.Provider>
-          </LoadingContext.Provider>
+          </DataContext.Provider>
         );
       });
 
@@ -223,11 +223,11 @@ describe("Home", () => {
       let component;
       await act(async () => {
         component = renderer.create(
-          <LoadingContext.Provider value={{ loading }}>
+          <DataContext.Provider value={{ data }}>
             <LanguageContext.Provider value={{ language }}>
               <Home />
             </LanguageContext.Provider>
-          </LoadingContext.Provider>
+          </DataContext.Provider>
         );
       });
       await act(async () => {
@@ -245,13 +245,3 @@ describe("Home", () => {
     });
   });
 });
-
-/*
-await render(
-        <LoadingContext.Provider value={{ loading }}>
-          <LanguageContext.Provider value={{ language }}>
-            <Home />
-          </LanguageContext.Provider>
-        </LoadingContext.Provider>
-      );
-      */

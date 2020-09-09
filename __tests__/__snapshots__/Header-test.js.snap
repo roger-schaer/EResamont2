@@ -2,13 +2,10 @@
 
 exports[`Header renders correctly 1`] = `
 <View
-  style={
-    Object {
-      "width": 412.50000000000006,
-    }
-  }
+  style={Object {}}
 >
   <Text
+    adjustsFontSizeToFit={true}
     numberOfLines={2}
     style={
       Object {

@@ -4,20 +4,21 @@ import { render, fireEvent } from "react-native-testing-library";
 
 import { LanguageContext } from "../shared/LanguageContext";
 import requestPage from "../utils/requestPage";
-import { LoadingContext } from "../shared/LoadingContext";
+import { DataContext } from "../shared/DataContext";
 import CustomDrawer from "../components/CustomDrawer";
-import { ToastAndroid } from "react-native";
 import storage from "../utils/storage";
+import { ASGMContext } from "../shared/ASGMContext";
 
 let navigateCalled = false;
 let language = 1;
-let loading = true;
+let data = null;
+let asgmStatus = false;
 
 let setLanguage = (newLanguage) => {
   language = newLanguage;
 };
-let setLoading = (newLoading) => {
-  loading = newLoading;
+let setData = (newData) => {
+  data = newData;
 };
 let navigation = {
   closeDrawer: () => {
@@ -32,8 +33,6 @@ let navigation = {
   },
 };
 
-ToastAndroid.show = jest.fn();
-
 jest.mock("../utils/requestPage");
 describe("CustomDrawer", () => {
   beforeEach(() => {
@@ -45,11 +44,13 @@ describe("CustomDrawer", () => {
   it(`renders correctly`, () => {
     const tree = renderer
       .create(
-        <LoadingContext.Provider value={{ loading }}>
+        <DataContext.Provider value={{ data }}>
           <LanguageContext.Provider value={{ language }}>
-            <CustomDrawer />
+            <ASGMContext.Provider value={{ asgmStatus }}>
+              <CustomDrawer />
+            </ASGMContext.Provider>
           </LanguageContext.Provider>
-        </LoadingContext.Provider>
+        </DataContext.Provider>
       )
       .toJSON();
     expect(tree).toMatchSnapshot();
@@ -61,18 +62,16 @@ describe("CustomDrawer", () => {
         return [];
       });
       const { getByTestId } = render(
-        <LoadingContext.Provider value={{ loading }}>
+        <DataContext.Provider value={{ data }}>
           <LanguageContext.Provider value={{ language, setLanguage }}>
-            <CustomDrawer navigation={navigation} />
+            <ASGMContext.Provider value={{ asgmStatus }}>
+              <CustomDrawer navigation={navigation} />
+            </ASGMContext.Provider>
           </LanguageContext.Provider>
-        </LoadingContext.Provider>
+        </DataContext.Provider>
       );
       const element = getByTestId("cd-button-update");
       await fireEvent.press(element);
-      expect(ToastAndroid.show).toHaveBeenCalledWith(
-        "Data already up to date",
-        ToastAndroid.LONG
-      );
     });
     it("should update and say updated", async () => {
       requestPage.fetchUpdatedContent = jest.fn(() => {
@@ -80,26 +79,29 @@ describe("CustomDrawer", () => {
       });
       storage.updateStoragePages = jest.fn(() => true);
       const { getByTestId } = render(
-        <LoadingContext.Provider value={{ loading, setLoading }}>
+        <DataContext.Provider value={{ data, setData }}>
           <LanguageContext.Provider value={{ language, setLanguage }}>
-            <CustomDrawer navigation={navigation} />
+            <ASGMContext.Provider value={{ asgmStatus }}>
+              <CustomDrawer navigation={navigation} />
+            </ASGMContext.Provider>
           </LanguageContext.Provider>
-        </LoadingContext.Provider>
+        </DataContext.Provider>
       );
       const element = getByTestId("cd-button-update");
       await fireEvent.press(element);
-      expect(ToastAndroid.show).toHaveBeenCalledTimes(1);
       expect(storage.updateStoragePages).toHaveBeenCalledTimes(1);
     });
   });
 
   it("changes language to english", () => {
     const { getByTestId } = render(
-      <LoadingContext.Provider value={{ loading }}>
+      <DataContext.Provider value={{ data }}>
         <LanguageContext.Provider value={{ language, setLanguage }}>
-          <CustomDrawer navigation={navigation} />
+          <ASGMContext.Provider value={{ asgmStatus }}>
+            <CustomDrawer navigation={navigation} />
+          </ASGMContext.Provider>
         </LanguageContext.Provider>
-      </LoadingContext.Provider>
+      </DataContext.Provider>
     );
     const element = getByTestId("button-view-English");
     fireEvent.press(element);
@@ -107,11 +109,13 @@ describe("CustomDrawer", () => {
   });
   it("changes language to italian", () => {
     const { getByTestId } = render(
-      <LoadingContext.Provider value={{ loading }}>
+      <DataContext.Provider value={{ data }}>
         <LanguageContext.Provider value={{ language, setLanguage }}>
-          <CustomDrawer navigation={navigation} />
+          <ASGMContext.Provider value={{ asgmStatus }}>
+            <CustomDrawer navigation={navigation} />
+          </ASGMContext.Provider>
         </LanguageContext.Provider>
-      </LoadingContext.Provider>
+      </DataContext.Provider>
     );
     const element = getByTestId("button-view-Italiano");
     fireEvent.press(element);
@@ -120,11 +124,13 @@ describe("CustomDrawer", () => {
   it("changes language to french", () => {
     setLanguage(2); //set initial value to non-french
     const { getByTestId } = render(
-      <LoadingContext.Provider value={{ loading }}>
+      <DataContext.Provider value={{ data }}>
         <LanguageContext.Provider value={{ language, setLanguage }}>
-          <CustomDrawer navigation={navigation} />
+          <ASGMContext.Provider value={{ asgmStatus }}>
+            <CustomDrawer navigation={navigation} />
+          </ASGMContext.Provider>
         </LanguageContext.Provider>
-      </LoadingContext.Provider>
+      </DataContext.Provider>
     );
     const element = getByTestId("button-view-Français");
     fireEvent.press(element);
@@ -133,11 +139,13 @@ describe("CustomDrawer", () => {
 
   it("changes language to german", () => {
     const { getByTestId } = render(
-      <LoadingContext.Provider value={{ loading }}>
+      <DataContext.Provider value={{ data }}>
         <LanguageContext.Provider value={{ language, setLanguage }}>
-          <CustomDrawer navigation={navigation} />
+          <ASGMContext.Provider value={{ asgmStatus }}>
+            <CustomDrawer navigation={navigation} />
+          </ASGMContext.Provider>
         </LanguageContext.Provider>
-      </LoadingContext.Provider>
+      </DataContext.Provider>
     );
     const element = getByTestId("button-view-Deutsch");
     fireEvent.press(element);
@@ -147,11 +155,13 @@ describe("CustomDrawer", () => {
   it("goes to home page after", () => {
     navigateCalled = false;
     const { getByTestId } = render(
-      <LoadingContext.Provider value={{ loading }}>
+      <DataContext.Provider value={{ data }}>
         <LanguageContext.Provider value={{ language, setLanguage }}>
-          <CustomDrawer navigation={navigation} />
+          <ASGMContext.Provider value={{ asgmStatus }}>
+            <CustomDrawer navigation={navigation} />
+          </ASGMContext.Provider>
         </LanguageContext.Provider>
-      </LoadingContext.Provider>
+      </DataContext.Provider>
     );
     const element = getByTestId("cd-button-home");
     fireEvent.press(element);

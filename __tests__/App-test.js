@@ -1,5 +1,4 @@
 import * as React from "react";
-import NavigationTestUtils from "react-navigation/NavigationTestUtils";
 import renderer from "react-test-renderer";
 import storage from "../utils/storage";
 import App from "../App";
@@ -14,10 +13,6 @@ storage.getLanguageSetting = jest.fn(() => 1);
 
 describe("App", () => {
   jest.useFakeTimers();
-
-  beforeEach(() => {
-    NavigationTestUtils.resetInternalState();
-  });
 
   it(`renders the loading screen`, () => {
     const tree = renderer.create(<App />).toJSON();

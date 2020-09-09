@@ -2,7 +2,7 @@ import * as React from "react";
 import renderer from "react-test-renderer";
 import { render, fireEvent } from "react-native-testing-library";
 import { LanguageContext } from "../shared/LanguageContext";
-import { LoadingContext } from "../shared/LoadingContext";
+import { DataContext } from "../shared/DataContext";
 import Header from "../components/Header";
 import utilities from "../utils/utilities";
 
@@ -33,17 +33,17 @@ describe("Header", () => {
   const setLanguage = (newLanguage) => {
     this.language = newLanguage;
   };
-  const loading = true;
+  const data = null;
   jest.useFakeTimers();
 
   it(`renders correctly`, () => {
     const tree = renderer
       .create(
-        <LoadingContext.Provider value={{ loading }}>
+        <DataContext.Provider value={{ data }}>
           <LanguageContext.Provider value={{ language }}>
             <Header title={"test title"} />
           </LanguageContext.Provider>
-        </LoadingContext.Provider>
+        </DataContext.Provider>
       )
       .toJSON();
     expect(tree).toMatchSnapshot();
