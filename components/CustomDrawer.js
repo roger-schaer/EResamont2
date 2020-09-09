@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { globalStyles } from "../styles/global";
 import { LanguageContext } from "../shared/LanguageContext";
-import { LoadingContext } from "../shared/LoadingContext";
+import { DataContext } from "../shared/DataContext";
 import ButtonView from "./ButtonView";
 import storage from "../utils/storage";
 import requestPage from "../utils/requestPage";
@@ -19,7 +19,7 @@ import { ASGMContext } from "../shared/ASGMContext";
 
 export default function CustomDrawer({ navigation }) {
   const { language, setLanguage } = useContext(LanguageContext);
-  const { setLoading } = useContext(LoadingContext);
+  const { setData } = useContext(DataContext);
   const { asgmStatus, setAsgmStatus } = useContext(ASGMContext);
 
   const navigationClick = (page) => () => {
@@ -42,18 +42,18 @@ export default function CustomDrawer({ navigation }) {
       let res = await storage.updateStoragePages(data);
       if (Platform.OS === "android")
         res === true && ToastAndroid.show("Data updated", ToastAndroid.SHORT);
-      setLoading(true);
+      setData(data);
     }
   };
   const clearData = async () => {
     await storage.removeASGMStatus();
     setAsgmStatus(false);
     await storage.removeAllStoragePages();
+    setData([]);
     let info = await storage.checkStoragePages();
     if (info === false) {
       if (Platform.OS === "android")
         ToastAndroid.show("Local data cleared", ToastAndroid.SHORT);
-      setLoading(true);
     }
   };
   const confirmClearDataClick = async () => {
@@ -186,7 +186,7 @@ export default function CustomDrawer({ navigation }) {
             {!asgmStatus && (
               <TouchableOpacity
                 onPress={() => navigation.navigate("ASGM")}
-                testID={"cd-button-update"}
+                testID={"cd-button-asgm"}
               >
                 <Text style={globalStyles.drawerTopMenuText}>
                   <FontAwesome5 name="lock" />{" "}

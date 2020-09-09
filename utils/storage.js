@@ -23,7 +23,7 @@ export default class storage {
     let tlp = await AsyncStorage.getItem(TOP_LEVEL_PAGES_KEY);
 
     // Not stored the top-level pages yet, no local data
-    if (tlp === null) {
+    if (tlp === null || JSON.parse(tlp) === null) {
       console.log("Top-level pages item doesn't exist");
       return false;
     }
@@ -106,13 +106,16 @@ export default class storage {
     console.log("Clearing local data");
     try {
       let tlp = await AsyncStorage.getItem(TOP_LEVEL_PAGES_KEY);
-      for (let pageID of JSON.parse(tlp)) {
-        await FileSystem.deleteAsync(getFilePathForID(pageID), {
-          idempotent: true,
-        });
+
+      if (tlp !== null) {
+        for (let pageID of JSON.parse(tlp)) {
+          await FileSystem.deleteAsync(getFilePathForID(pageID), {
+            idempotent: true,
+          });
+        }
+        await AsyncStorage.removeItem(TOP_LEVEL_PAGES_KEY);
+        console.log("Local data cleared");
       }
-      await AsyncStorage.removeItem(TOP_LEVEL_PAGES_KEY);
-      console.log("Local data cleared");
     } catch (e) {
       console.error(e);
     }

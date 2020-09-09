@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { LanguageContext } from "./shared/LanguageContext";
-import { LoadingContext } from "./shared/LoadingContext";
+import { DataContext } from "./shared/DataContext";
 import storage from "./utils/storage";
 import RootDrawer from "./routes/Drawer";
 import { NavigationContainer } from "@react-navigation/native";
@@ -10,7 +10,7 @@ import { ASGMContext } from "./shared/ASGMContext";
 
 export default function App() {
   const [language, setLanguage] = useState(1); //French default
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(null);
   const [asgmStatus, setAsgmStatus] = useState(null);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export default function App() {
   if (asgmStatus !== null) {
     return (
       //<Auth2Provider>
-      <LoadingContext.Provider value={{ loading, setLoading }}>
+      <DataContext.Provider value={{ data, setData }}>
         <LanguageContext.Provider value={{ language, setLanguage }}>
           <ASGMContext.Provider value={{ asgmStatus, setAsgmStatus }}>
             <NavigationContainer>
@@ -51,7 +51,7 @@ export default function App() {
             </NavigationContainer>
           </ASGMContext.Provider>
         </LanguageContext.Provider>
-      </LoadingContext.Provider>
+      </DataContext.Provider>
 
       //</Auth2Provider>
     );
