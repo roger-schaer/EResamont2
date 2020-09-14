@@ -1,4 +1,4 @@
-import React, { useState, useContext, useMemo, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import {
   StyleSheet,
   View,
@@ -15,6 +15,7 @@ import utilities from "../utils/utilities";
 import storage from "../utils/storage";
 import ButtonView from "../components/ButtonView";
 import { Asset } from "expo-asset";
+import * as WebBrowser from "expo-web-browser";
 
 async function getAssetsMap(assets) {
   let map = {};
@@ -213,7 +214,9 @@ export default function SubScreen({ navigation, route }) {
   const [tab] = useState(route.params);
   const { language } = useContext(LanguageContext);
   const [comicsAssetsMap, setComicsAssetsMap] = useState({});
+  const webViewRef = useRef();
 
+  // Load images for the comics page
   useEffect(() => {
     async function loadImages() {
       const comicsAssetsMap = await getAssetsMap(getComicsAssets());
@@ -280,17 +283,12 @@ export default function SubScreen({ navigation, route }) {
         generatedJS += `
         var imgTags = document.querySelectorAll("img");
         let assetsMap = ${JSON.stringify(comicsAssetsMap)};
-        window.ReactNativeWebView.postMessage('image tags' + imgTags);
         for(let imgTag of imgTags){
           imgTag.style.display = 'none';
           imgTag.style.width = '100%';
-          window.ReactNativeWebView.postMessage('image tag src ' + imgTag.getAttribute('src'));
           let originalSrc = imgTag.getAttribute('src');
-          window.ReactNativeWebView.postMessage('orig src ' + originalSrc);
           let filename = originalSrc.substring(originalSrc.lastIndexOf('/') + 1);
-          window.ReactNativeWebView.postMessage('filename ' + filename);
           let newSrc = assetsMap[filename];
-          window.ReactNativeWebView.postMessage('new src ' + JSON.stringify(newSrc));
           imgTag.setAttribute('src', newSrc);
           imgTag.style.display = 'block';
         }
@@ -304,12 +302,24 @@ export default function SubScreen({ navigation, route }) {
     return generatedJS;
   };
 
+  const handleRequest = (request) => {
+    // If we are about to load an external URL, stop loading and open
+    // in the external Web Browser of the system
+    if (request.url && request.url.startsWith("http")) {
+      WebBrowser.openBrowserAsync(request.url);
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   if (checkScreenType(tab) === 3) {
     //LEAF
     return (
       (tab.id !== 92 || Object.keys(comicsAssetsMap).length > 0) && (
         <View style={localStyles.leafView}>
           <WebView
+            ref={webViewRef}
             textZoom={270}
             onError={(event) => {
               const { nativeEvent } = event;
@@ -338,6 +348,7 @@ export default function SubScreen({ navigation, route }) {
             allowFileAccessFromFileURLs={true}
             allowFileAccess={true}
             originWhiteList={["*"]}
+            mixedContentMode="always"
             onMessage={(event) => {
               console.warn(event.nativeEvent.data);
               if (tab.id == 95 || tab.id == 100)
@@ -350,6 +361,7 @@ export default function SubScreen({ navigation, route }) {
               height: height,
             }}
             testID={"sub-webview"}
+            onShouldStartLoadWithRequest={handleRequest}
           />
         </View>
       )
@@ -363,7 +375,9 @@ export default function SubScreen({ navigation, route }) {
       >
         <View style={localStyles.sectionViewTop}>
           <WebView
+            ref={webViewRef}
             textZoom={270}
+            mixedContentMode="always"
             source={{
               html:
                 tab.pages_lang[
@@ -379,6 +393,7 @@ export default function SubScreen({ navigation, route }) {
                     ].text.replace(/(\r\n|\n|\r)/gm, " "),
             }}
             style={localStyles.sectionViewTopWebView}
+            onShouldStartLoadWithRequest={handleRequest}
           />
           <View style={localStyles.sectionViewBottom}>
             <ScrollView
