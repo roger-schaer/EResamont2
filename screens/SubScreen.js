@@ -16,6 +16,7 @@ import storage from "../utils/storage";
 import ButtonView from "../components/ButtonView";
 import { Asset } from "expo-asset";
 import * as WebBrowser from "expo-web-browser";
+import { DataContext } from "../shared/DataContext";
 
 async function getAssetsMap(assets) {
   let map = {};
@@ -212,6 +213,7 @@ function getComicsAssets() {
 
 export default function SubScreen({ navigation, route }) {
   const [tab] = useState(route.params);
+  const { data } = useContext(DataContext);
   const { language } = useContext(LanguageContext);
   const [comicsAssetsMap, setComicsAssetsMap] = useState({});
   const webViewRef = useRef();
@@ -303,11 +305,23 @@ export default function SubScreen({ navigation, route }) {
   };
 
   const handleRequest = (request) => {
-    // If we are about to load an external URL, stop loading and open
-    // in the external Web Browser of the system
-    if (request.url && request.url.startsWith("http")) {
+    // If we are about to load an external URL, stop loading and check
+    // how the request should be handled first
+
+    // If the link is starts with "http://eresamont/pages", we want to redirect
+    // to another screen within the app
+    if (request.url && request.url.startsWith("http://eresamont/pages/")) {
+      const regex = /.*\/pages\/(\d+)/;
+      let pageID = request.url.match(regex)[1];
+      let pageItem = utilities.findPage(data, +pageID);
+      navigation.push("SubScreen", pageItem);
+
+      return false;
+      // If the link is to an external website, open in the Web Browser
+    } else if (request.url && request.url.startsWith("http")) {
       WebBrowser.openBrowserAsync(request.url);
       return false;
+      // If it's not a link, continue with the request
     } else {
       return true;
     }

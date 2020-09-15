@@ -6,4 +6,17 @@ export default class utilities {
     }
     return index;
   }
+
+  static findPage(data, id) {
+    if (!data) return;
+
+    for (const item of data) {
+      // Current item is the right one
+      if (item.id === id) return item;
+
+      // Check children
+      const child = this.findPage(item.children, id);
+      if (child) return child;
+    }
+  }
 }
