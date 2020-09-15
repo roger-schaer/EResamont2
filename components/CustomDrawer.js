@@ -49,7 +49,7 @@ export default function CustomDrawer({ navigation }) {
     await storage.removeASGMStatus();
     setAsgmStatus(false);
     await storage.removeAllStoragePages();
-    setData([]);
+    setData(null);
     let info = await storage.checkStoragePages();
     if (info === false) {
       if (Platform.OS === "android")

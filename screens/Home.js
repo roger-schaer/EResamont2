@@ -50,14 +50,25 @@ export default function Home({ navigation }) {
     };
   }, []);
 
+  // Clear data on Internet change
   useEffect(() => {
     async function loadPagesOnInternetChange() {
       setData(null);
-      await getAllPages();
     }
 
     loadPagesOnInternetChange();
   }, [internetState]);
+
+  // Reload pages on clearing data
+  useEffect(() => {
+    async function loadPagesOnClearData() {
+      await getAllPages();
+    }
+
+    if (data === null) {
+      loadPagesOnClearData();
+    }
+  }, [data]);
 
   let getAllPages = async () => {
     // check local storage, if empty then fetch all online and save, if exists then fetch updates,
