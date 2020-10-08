@@ -45,8 +45,8 @@ function HomeStack() {
           let navParams = route.params;
           return {
             headerTitle: () => <Header title={navParams.pages_lang} />,
-            headerLeft: () => <HeaderLeft />,
-            headerRight: () => <HeaderRight />,
+            headerBackTitleVisible: false,
+            //headerRight: () => <HeaderRight />,
           };
         }}
       />
@@ -58,6 +58,7 @@ function HomeStack() {
             headerTitle: () => (
               <Header title="Emergency calls" navigation={navigation} />
             ),
+            headerBackTitleVisible: false,
           };
         }}
       />
@@ -67,6 +68,7 @@ function HomeStack() {
         options={({ navigation }) => {
           return {
             headerTitle: () => <Header title="GPS" navigation={navigation} />,
+            headerBackTitleVisible: false,
           };
         }}
       />
@@ -76,6 +78,7 @@ function HomeStack() {
         options={({ navigation }) => {
           return {
             headerTitle: () => <Header title="ASGM" navigation={navigation} />,
+            headerBackTitleVisible: false,
           };
         }}
       />

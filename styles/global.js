@@ -28,9 +28,8 @@ export const globalStyles = StyleSheet.create({
   },
   headerText: {
     fontWeight: "bold",
-    fontSize: 17,
+    //fontSize: 17,
     color: themeColorPrimary,
-    marginLeft: 5,
     fontFamily: globalFont,
   },
   headerIcon: {
