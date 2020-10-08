@@ -250,9 +250,15 @@ export default function SubScreen({ navigation, route }) {
     }
     return result;
   };
+
+  // Adjust scale of the WebView based on width of the screen
+  // Special case for really old iPhones having only 320px width
+  const screenWidth = Math.round(Dimensions.get("screen").width);
   let forIOS =
     Platform.OS === "ios"
-      ? '<meta name="viewport" content="width=device-width, initial-scale=1, max-scale=1">'
+      ? `<meta name="viewport" content="initial-scale=${
+          screenWidth > 320 ? 1.0 : 0.8
+        }">`
       : ""; //enlarge web text view for ios
 
   let generateJavaScript = (id) => {

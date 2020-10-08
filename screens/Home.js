@@ -76,7 +76,10 @@ export default function Home({ navigation }) {
     let data = [];
     let connectionInfo = await requestPage.checkConnection();
     let dataExists = await storage.checkStoragePages();
-    let connectionOK = connectionInfo && connectionInfo.isInternetReachable;
+    let connectionOK =
+      connectionInfo && connectionInfo.isInternetReachable !== null
+        ? connectionInfo.isInternetReachable
+        : false;
     console.log("Connection is ok", connectionOK);
     //No local data, no connection
     // TODO - Either remove or localize this (and check what happens on iOS with ToastAndroid)
