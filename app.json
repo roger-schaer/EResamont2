@@ -34,7 +34,7 @@
     },
     "android": {
       "package": "ch.hevs.aislab.sapao.eResamont",
-      "versionCode": 411,
+      "versionCode": 412,
       "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
     }
   }
